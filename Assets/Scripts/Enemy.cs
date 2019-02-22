@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Attack : MonoBehaviour
+public class Enemy : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
@@ -14,15 +14,5 @@ public class Attack : MonoBehaviour
     void Update()
     {
         
-    }
-
-    public void cast()
-    {
-        Invoke("destroy", 0.6f);
-    }
-
-    void destroy()
-    {
-        gameObject.SetActive(false);
     }
 }
