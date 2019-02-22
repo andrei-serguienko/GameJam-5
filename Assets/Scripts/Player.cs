@@ -61,13 +61,21 @@ public class Player : MonoBehaviour
             jumping = true;
         }
 
-        print(attack);
         if (Input.GetMouseButtonDown(0) && attack == false)
         {
             attack = true;
-            transform.GetChild(0).gameObject.SetActive(true);
-            transform.GetChild(0).GetComponent<Attack>().cast();
-            Invoke("EnableAttack", timeBetweenAttack);
+            if (facingRight == true)
+            {
+                transform.GetChild(0).gameObject.SetActive(true);
+                transform.GetChild(0).GetComponent<Attack>().cast();
+                Invoke("EnableAttack", timeBetweenAttack);
+            }
+            else
+            {
+                transform.GetChild(1).gameObject.SetActive(true);
+                transform.GetChild(1).GetComponent<Attack>().cast();
+                Invoke("EnableAttack", timeBetweenAttack);
+            }
         }
     }
 
