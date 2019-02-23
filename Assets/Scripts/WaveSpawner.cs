@@ -105,7 +105,8 @@ public class WaveSpawner : MonoBehaviour
     void SpawnEnemy(Transform enemy)
     {
         Transform sp = spawnPoints[Random.Range(0, spawnPoints.Length)];
-        Instantiate(enemy, sp.transform); 
+        Transform create = Instantiate(enemy, sp.transform);
+        create.position = sp.position;
     }
 }
 

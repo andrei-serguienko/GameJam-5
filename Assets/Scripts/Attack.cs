@@ -30,7 +30,8 @@ public class Attack : MonoBehaviour
     {
         if (other.gameObject.tag == "Enemy")
         {
-            other.gameObject.GetComponent<Enemy>().takeDamage(100);
+            other.gameObject.GetComponent<Enemy>().takeDamage(50);
+            print("TAKE A HIT");
         } else if (other.gameObject.tag == "Player")
         {
             other.gameObject.GetComponent<HPlayer>().takeDamage(1);
