@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    private GameObject player;
+    private GameObject[] players;
     private Animator anim;
 
     public int enemySpeed;
@@ -15,13 +15,13 @@ public class Enemy : MonoBehaviour
     {
         anim = GetComponent<Animator>();
         Invoke("Attack", 3f);
-        player = GameObject.FindGameObjectWithTag("Player");
-              
+        players = GameObject.FindGameObjectsWithTag("Player");
     }
 
     void Attack()
     {
-        
+        if (players.Length == 0) return; 
+        GameObject player = players[0];
         Vector3 vectorToTarget = player.transform.position - transform.position;
         float angle = Mathf.Atan2(vectorToTarget.y, vectorToTarget.x) * Mathf.Rad2Deg;
         Quaternion q = Quaternion.AngleAxis(angle, Vector3.forward);

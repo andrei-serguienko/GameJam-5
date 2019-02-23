@@ -11,7 +11,10 @@ public class HPlayer : NetworkBehaviour
     public Queue<String> movesQueue = new Queue<String>();
     public Queue<Vector3> positionQueue = new Queue<Vector3>();
     public CameraFollower mainCamera;
+
+    [SyncVar(hook = "OnTwinChange")]
     public GameObject twin;
+
     private bool jumping = false;
     private bool attack = false;
 
@@ -37,13 +40,12 @@ public class HPlayer : NetworkBehaviour
 
     public override void OnStartLocalPlayer()
     {
+        base.OnStartLocalPlayer();
+
         gameObject.transform.position = new Vector3(2.25f, 7, -2.73f);
         mainCamera.player = gameObject;
         Instantiate(mainCamera, new Vector3(transform.position.x, transform.position.y, -18), Quaternion.identity);
-        HTwin htwin = twin.GetComponent<HTwin>();
-        htwin.player = this;
-        htwin.imitateAtTime = Time.time + 3;
-        twin = Instantiate(twin, transform.position, Quaternion.identity);
+        CmdInstantiateTwin();
         anim = GetComponent<Animator>();
 
         healthGameObjects = new ArrayList();
@@ -51,6 +53,20 @@ public class HPlayer : NetworkBehaviour
         {
             healthGameObjects.Add(AddHealth());
         }
+    }
+
+    [Command]
+    public void CmdInstantiateTwin()
+    {
+        HTwin htwin = twin.GetComponent<HTwin>();
+        htwin.player = this;
+        htwin.imitateAtTime = Time.time + 3;
+        GameObject clientTwin = (GameObject)Instantiate(twin, transform.position, transform.rotation);
+        NetworkServer.Spawn(clientTwin);
+    }
+
+    void OnTwinChange(GameObject gO) { 
+        twin = gO;
     }
 
     GameObject AddHealth()
@@ -73,9 +89,10 @@ public class HPlayer : NetworkBehaviour
         return cube;
     }
 
-    void OnFacingRightChange(bool newFacingRight)
+    public void OnFacingRightChange(bool newFacingRight)
     {
         facingRight = newFacingRight;
+        GetComponent<SpriteRenderer>().flipX = !facingRight;
         Debug.Log("Variable 'facingRight' is now" + facingRight);
     }
 
@@ -96,6 +113,26 @@ public class HPlayer : NetworkBehaviour
     {
         //Create a cube health
     }
+
+    public void Flip(string arg) {
+        if (arg == "left")
+        {
+            if (facingRight)
+            {
+                GetComponent<SpriteRenderer>().flipX = true;
+                facingRight = false;
+            }
+        }
+        else if (arg == "right")
+        {
+            if (!facingRight)
+            {
+                GetComponent<SpriteRenderer>().flipX = false;
+                facingRight = true;
+            }
+        }
+    }
+
 
     [Command]
     public void CmdFlip(string arg)
@@ -131,14 +168,16 @@ public class HPlayer : NetworkBehaviour
         {
             anim.SetBool("Running", true);
             CmdFlip("left");
+            Flip("left");
             movesQueue.Enqueue("move");
             positionQueue.Enqueue(movement);
             doesMove = true;
-}
+        }
         else if (movement.x > 0)
         {
             anim.SetBool("Running", true);
             CmdFlip("right");
+            Flip("right");
             movesQueue.Enqueue("move");
             positionQueue.Enqueue(movement);
             doesMove = true;

@@ -2,14 +2,18 @@
 using System.Collections.Generic;
 using System;
 using UnityEngine;
+using UnityEngine.Networking;
 
-public class HTwin : MonoBehaviour
+public class HTwin : NetworkBehaviour
 {
     private float speed;
     private float timeBetweenAttack;
     private bool jumping = false;
     private bool attack = false;
-    private bool facingRight = true;
+
+    [SyncVar(hook = "OnFacingRightChange")]
+    public bool facingRight = true;
+
     private int forceJump;
     private int timeTwin = 3;
 
@@ -48,16 +52,46 @@ public class HTwin : MonoBehaviour
         }
     }
 
+    public void OnFacingRightChange(bool newFacingRight)
+    {
+        facingRight = newFacingRight;
+        GetComponent<SpriteRenderer>().flipX = !facingRight;
+        Debug.Log("Variable 'facingRight' is now" + facingRight);
+    }
+
+    [Command]
+    public void CmdFlip(string arg)
+    {
+        if (arg == "left")
+        {
+            if (facingRight)
+            {
+                GetComponent<SpriteRenderer>().flipX = true;
+                facingRight = false;
+            }
+        }
+        else if (arg == "right")
+        {
+            if (!facingRight)
+            {
+                GetComponent<SpriteRenderer>().flipX = false;
+                facingRight = true;
+            }
+        }
+    }
+
     void Move(Vector3 movement)
     {
         transform.position += movement * Time.deltaTime;
         if (movement.x < 0)
         {
+            CmdFlip("left");
             Flip("left");
             anim.SetBool("Running", true);
         }
         else if (movement.x > 0)
         {
+            CmdFlip("right");
             Flip("right");
             anim.SetBool("Running", true);
         }
