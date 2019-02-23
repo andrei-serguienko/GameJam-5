@@ -185,7 +185,6 @@ public class HPlayer : MonoBehaviour
         {
             anim.SetBool("isJumping", false);
         }
-        print(gameObject.GetComponent<Rigidbody2D>().velocity.y);
         if (gameObject.GetComponent<Rigidbody2D>().velocity.y < -0.5)
         {
             anim.SetBool("isFalling", true);

@@ -49,13 +49,16 @@ public class HTwin : MonoBehaviour
     void Move(Vector3 movement)
     {
         transform.position += movement * Time.deltaTime;
+        print(movement.x);
         if (movement.x < 0)
         {
             Flip("left");
+            anim.SetBool("Running", true);
         }
         else if (movement.x > 0)
         {
             Flip("right");
+            anim.SetBool("Running", true);
         }
     }
 
@@ -106,6 +109,7 @@ public class HTwin : MonoBehaviour
                     break;
                 case "idle":
                     transform.position = player.positionQueue.Dequeue();
+                    anim.SetBool("Running", false);
                     break;
                 default:
                     break;
@@ -127,5 +131,23 @@ public class HTwin : MonoBehaviour
     void EnableAttack()
     {
         attack = false;
+    }
+
+    private void Update()
+    {
+        if (gameObject.GetComponent<Rigidbody2D>().velocity.y > 1)
+        {
+            anim.SetBool("isJumping", true);
+        } else
+        {
+            anim.SetBool("isJumping", false);
+        }
+        if (gameObject.GetComponent<Rigidbody2D>().velocity.y < -0.5)
+        {
+            anim.SetBool("isFalling", true);
+        } else
+        {
+            anim.SetBool("isFalling", false);
+        }
     }
 }
