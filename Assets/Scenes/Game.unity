@@ -299,7 +299,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &170633870
 Transform:
   m_ObjectHideFlags: 0
@@ -868,11 +868,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1656613535}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c87bb95e962e8c343891f5d7685e0ae0, type: 3}
+  m_Script: {fileID: 11500000, guid: c0280c94d597c4121a6c9df954382d6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 1935349951}
-  timeTwin: 3
+  player: {fileID: 1935349959}
 --- !u!212 &1656613537
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1098,8 +1097,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1935349955}
-  - component: {fileID: 1935349956}
-  - component: {fileID: 1935349958}
+  - component: {fileID: 1935349959}
   - component: {fileID: 1935349957}
   - component: {fileID: 1935349952}
   - component: {fileID: 1935349953}
@@ -1220,21 +1218,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1935349956
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1935349951}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ef74159874f0cc42bf1592b2f0f3f07, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 10
-  timeBetweenAttack: 1
-  forceJump: 25
 --- !u!50 &1935349957
 Rigidbody2D:
   serializedVersion: 4
@@ -1256,7 +1239,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &1935349958
+--- !u!114 &1935349959
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1265,9 +1248,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1935349951}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cf29bcdd6b3df5543ad7c8bce414aaaa, type: 3}
+  m_Script: {fileID: 11500000, guid: fd6ea415381ae4802a90e905f460e51c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 10
+  timeBetweenAttack: 1
+  timeConstant: 500
+  forceJump: 25
 --- !u!1 &2004498060
 GameObject:
   m_ObjectHideFlags: 0
