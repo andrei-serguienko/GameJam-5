@@ -179,6 +179,9 @@ public class HPlayer : MonoBehaviour
         } else if (other.gameObject.tag == "Enemy")
         {
             takeDamage();
+        } else if (other.gameObject.tag == "GroundEnemy")
+        {
+            takeDamage();
         }
         else
         {
