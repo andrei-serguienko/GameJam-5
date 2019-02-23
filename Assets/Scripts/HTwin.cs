@@ -113,6 +113,9 @@ public class HTwin : MonoBehaviour
                 case "rightAttack":
                     RightAttack();
                     break;
+                case "idle":
+                    transform.position = player.positionQueue.Dequeue();
+                    break;
                 default:
                     break;
             }

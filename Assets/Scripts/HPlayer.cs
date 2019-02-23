@@ -95,7 +95,8 @@ public class HPlayer : MonoBehaviour
         if (!doesMove)
         {
             movesQueue.Enqueue("idle");
-        }
+            positionQueue.Enqueue(transform.position);
+       }
     }
 
     void OnCollisionEnter2D(Collision2D other)
