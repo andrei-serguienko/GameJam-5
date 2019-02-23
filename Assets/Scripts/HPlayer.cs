@@ -40,6 +40,14 @@ public class HPlayer : MonoBehaviour
             cube.transform.parent = gameObject.transform;
             healthGameObjects.Add(cube);
         }
+        
+        takeDamage(2);
+    }
+    
+    public void takeDamage(int dmg)
+    {
+        for(int i = 0; i <= dmg; ++i)
+            Destroy((GameObject)healthGameObjects[0]);
     }
 
     void Flip(string arg)
