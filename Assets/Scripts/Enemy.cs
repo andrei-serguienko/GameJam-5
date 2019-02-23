@@ -59,4 +59,14 @@ public class Enemy : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.tag == "Player")
+        {
+            other.gameObject.GetComponent<Rigidbody2D>().AddForce(-other.relativeVelocity * 300, ForceMode2D.Impulse);
+            gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+            Invoke("Attack", 3f);
+        }
+    }
 }

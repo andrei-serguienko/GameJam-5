@@ -13,7 +13,8 @@ public class HPlayer : MonoBehaviour
     private bool attack = false;
     private bool facingRight = true;
     public int timeConstant = 500;
-    private int health = 5;
+    private int maxHealth = 5;
+    private int currentHealth;
     private ArrayList healthGameObjects;
     private float healthTopBarPadding = 1;
 
@@ -28,31 +29,44 @@ public class HPlayer : MonoBehaviour
         anim = GetComponent<Animator>();
         
         healthGameObjects = new ArrayList();
-        for(int i=0;i<health;i++)
-        {
-            float spriteHeight = GetComponent<SpriteRenderer>().bounds.size.y;
-            float spriteWidth = GetComponent<SpriteRenderer>().bounds.size.x;
-            float yPos = transform.position.y - 1;
-            float xPos = transform.position.x;
-            float center = xPos - spriteWidth / 2 - 0.5f;
-            GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            cube.GetComponent<Renderer>().material.color = Color.red;
-            Vector3 theScale = cube.transform.localScale;
-            theScale.x *= 0.5f;
-            theScale.y *= 0.5f;
-            cube.transform.localScale = theScale;
-            cube.transform.position = new Vector3(center + i * healthTopBarPadding, spriteHeight + yPos, 0);
-            cube.transform.parent = gameObject.transform;
-            healthGameObjects.Add(cube);
+        for(int i=0;i<maxHealth;i++)
+        {   
+            healthGameObjects.Add(AddHealth());
         }
         
     }
-    
-    public void takeDamage(int dmg)
+
+    GameObject AddHealth()
     {
-        print("AIE !");
-        for(int i = 0; i <= dmg; ++i)
-            Destroy((GameObject)healthGameObjects[healthGameObjects.Count - 1]);
+        float spriteHeight = GetComponent<SpriteRenderer>().bounds.size.y;
+        float spriteWidth = GetComponent<SpriteRenderer>().bounds.size.x;
+        float yPos = transform.position.y - 1;
+        float xPos = transform.position.x;
+        float center = xPos - spriteWidth / 2 - 0.5f;
+        
+        GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        cube.GetComponent<Renderer>().material.color = Color.red;
+        Vector3 theScale = cube.transform.localScale;
+        theScale.x *= 0.5f;
+        theScale.y *= 0.5f;
+        cube.transform.localScale = theScale;
+        cube.transform.position = new Vector3(center + (currentHealth-1) * healthTopBarPadding, spriteHeight + yPos, 0);
+        cube.transform.parent = gameObject.transform;
+        currentHealth += 1;
+        return cube;
+    }
+    
+    public void takeDamage()
+    {
+        Destroy((GameObject) healthGameObjects[currentHealth - 1]);
+        currentHealth--;         
+        if (currentHealth <= 0)
+            Die();
+    }
+
+    private void Die()
+    {
+        throw new NotImplementedException();
     }
 
     public void regenHealth(int qt)
@@ -162,6 +176,9 @@ public class HPlayer : MonoBehaviour
         if (other.gameObject.tag == "Ground")
         {
             jumping = false;
+        } else if (other.gameObject.tag == "Enemy")
+        {
+            takeDamage();
         }
         else
         {

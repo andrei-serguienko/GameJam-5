@@ -29,12 +29,16 @@ public class Attack : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.tag == "Enemy")
-        {
+        {    
             other.gameObject.GetComponent<Enemy>().takeDamage(50);
-            print("TAKE A HIT");
+            print((gameObject.transform.position - other.gameObject.transform.position) * 5);
+            other.gameObject.GetComponent<Rigidbody2D>().AddForce(-(gameObject.transform.position - other.gameObject.transform.position) * 5, ForceMode2D.Impulse);
+
+            
+            
         } else if (other.gameObject.tag == "Player")
         {
-            other.gameObject.GetComponent<HPlayer>().takeDamage(1);
+            other.gameObject.GetComponent<HPlayer>().takeDamage();
         }
     }
 
