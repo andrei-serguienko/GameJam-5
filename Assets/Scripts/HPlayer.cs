@@ -13,8 +13,36 @@ public class HPlayer : MonoBehaviour
     private bool attack = false;
     private bool facingRight = true;
     public int timeConstant = 500;
+    public int health = 5;
+    private ArrayList healthGameObjects;
+    private float healthTopBarPadding = 1;
 
     public int forceJump;
+
+    private void Start()
+    {
+        
+        healthGameObjects = new ArrayList();
+        for(int i=0;i<health;i++)
+        {
+            float spriteHeight = GetComponent<SpriteRenderer>().bounds.size.y;
+            float spriteWidth = GetComponent<SpriteRenderer>().bounds.size.x;
+            float yPos = transform.position.y - 1;
+            float xPos = transform.position.x;
+            float center = xPos - spriteWidth / 2 - 1;
+            GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            cube.GetComponent<Renderer>().material.color = Color.red;
+            Vector3 theScale = cube.transform.localScale;
+            theScale.x *= 0.5f;
+            theScale.y *= 0.5f;
+            cube.transform.localScale = theScale;
+            GameObject gO = Instantiate(cube,
+                                        new Vector3(center+i*healthTopBarPadding, spriteHeight + yPos, 0), 
+                                        Quaternion.identity);
+            gO.transform.parent = gameObject.transform;
+            healthGameObjects.Add(gameObject);
+        }
+    }
 
     void Flip(string arg)
     {
