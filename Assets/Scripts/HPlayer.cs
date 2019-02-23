@@ -22,9 +22,7 @@ public class HPlayer : MonoBehaviour
         {
             if (facingRight)
             {
-                Vector3 theScale = transform.localScale;
-                theScale.x *= -1;
-                transform.localScale = theScale;
+                GetComponent<SpriteRenderer>().flipX = true;
                 facingRight = false;
             }
         }
@@ -32,9 +30,7 @@ public class HPlayer : MonoBehaviour
         {
             if (!facingRight)
             {
-                Vector3 theScale = transform.localScale;
-                theScale.x *= -1;
-                transform.localScale = theScale;
+                GetComponent<SpriteRenderer>().flipX = false;
                 facingRight = true;
             }
         }
@@ -64,17 +60,16 @@ public class HPlayer : MonoBehaviour
             doesMove = true;
         }
 
-        if (Input.GetKeyDown("space") && jumping == false)
+        if (Input.GetKeyDown("w") && jumping == false)
         {
             gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(0, forceJump);
-            jumping = true;
             movesQueue.Enqueue("jump");
+            jumping = true;
             doesMove = true;
         }
 
-        if (Input.GetMouseButtonDown(0) && attack == false)
+        if (Input.GetKeyDown("space") && attack == false)
         {
-            attack = true;
             if (facingRight == true)
             {
                 transform.GetChild(0).gameObject.SetActive(true);
@@ -91,6 +86,7 @@ public class HPlayer : MonoBehaviour
                 movesQueue.Enqueue("leftAttack");
                 doesMove = true;
             }
+            attack = true;
         }
         if (!doesMove)
         {
