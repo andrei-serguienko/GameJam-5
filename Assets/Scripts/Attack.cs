@@ -31,8 +31,8 @@ public class Attack : MonoBehaviour
         if (other.gameObject.tag == "Enemy")
         {    
             other.gameObject.GetComponent<Enemy>().takeDamage(50);
-            print((gameObject.transform.position - other.gameObject.transform.position) * 5);
-            other.gameObject.GetComponent<Rigidbody2D>().AddForce(-(gameObject.transform.position - other.gameObject.transform.position) * 5, ForceMode2D.Impulse);
+//            print((gameObject.transform.position - other.gameObject.transform.position) * 5);
+//            other.gameObject.GetComponent<Rigidbody2D>().AddForce(-(gameObject.transform.position - other.gameObject.transform.position) * 5, ForceMode2D.Impulse);
 
             
             
