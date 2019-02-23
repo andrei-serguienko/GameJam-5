@@ -32,11 +32,15 @@ public class Attack : MonoBehaviour
         {    
             other.gameObject.GetComponent<Enemy>().takeDamage(50);
 //            print((gameObject.transform.position - other.gameObject.transform.position) * 5);
-//            other.gameObject.GetComponent<Rigidbody2D>().AddForce(-(gameObject.transform.position - other.gameObject.transform.position) * 5, ForceMode2D.Impulse);
+//            other.gameObject.GetComponent<Rigidbody2D>().AddForce(-(gameObject.transform.position - other.gameObject.transform.position) * 5, ForceMode2D.Impulse);      
+            
+        } else if (other.gameObject.tag == "GroundEnemy")
+        {
+            other.gameObject.GetComponent<GroundEnemy>().takeDamage(50);
 
-            
-            
-        } else if (other.gameObject.tag == "Player")
+        }
+        
+        else if (other.gameObject.tag == "Player")
         {
             other.gameObject.GetComponent<HPlayer>().takeDamage();
         }
