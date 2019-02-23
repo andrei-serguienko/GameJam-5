@@ -2,13 +2,16 @@
 using System.Collections.Generic;
 using System;
 using UnityEngine;
+using UnityEngine.Networking;
 
-public class HPlayer : MonoBehaviour
+public class HPlayer : NetworkBehaviour 
 {
     public float speed;
     public float timeBetweenAttack;
     public Queue<String> movesQueue = new Queue<String>();
     public Queue<Vector3> positionQueue = new Queue<Vector3>();
+    public CameraFollower mainCamera;
+    public GameObject twin;
     private bool jumping = false;
     private bool attack = false;
     private bool facingRight = true;
@@ -26,14 +29,25 @@ public class HPlayer : MonoBehaviour
 
     private void Start()
     {
+
+    }
+
+    public override void OnStartLocalPlayer()
+    {
+        gameObject.transform.position = new Vector3(2.25f, 7, -2.73f);
+        mainCamera.player = gameObject;
+        Instantiate(mainCamera, new Vector3(transform.position.x, transform.position.y, -18), Quaternion.identity);
+        HTwin htwin = twin.GetComponent<HTwin>();
+        htwin.player = this;
+        htwin.imitateAtTime = Time.time + 3;
+        twin = Instantiate(twin, transform.position, Quaternion.identity);
         anim = GetComponent<Animator>();
-        
+
         healthGameObjects = new ArrayList();
-        for(int i=0;i<maxHealth;i++)
-        {   
+        for (int i = 0; i < maxHealth; i++)
+        {
             healthGameObjects.Add(AddHealth());
         }
-        
     }
 
     GameObject AddHealth()

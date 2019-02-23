@@ -15,6 +15,8 @@ public class HTwin : MonoBehaviour
 
     private Animator anim;
 
+    public float imitateAtTime;
+
     public HPlayer player;
 
     private void Start()
