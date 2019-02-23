@@ -156,6 +156,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 673e2a6dfabfdfb4992fb260bb706292, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: 0
 --- !u!61 &106173945
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -372,6 +373,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 673e2a6dfabfdfb4992fb260bb706292, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: 0
 --- !u!1001 &199113033
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1302,7 +1304,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.98, y: 0.42}
+  m_AnchoredPosition: {x: -0.07, y: 0.42}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &1139294379
@@ -1867,6 +1869,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 673e2a6dfabfdfb4992fb260bb706292, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: 0
 --- !u!61 &1362448639
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2447,7 +2450,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1696718025}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4f0f420d98f03f14fbd72e6d33f28f7d, type: 3}
   m_Name: 
@@ -3015,6 +3018,7 @@ MonoBehaviour:
   speed: 10
   timeBetweenAttack: 0
   timeConstant: 500
+  damage: 0
   forceJump: 25
 --- !u!1 &1975485195
 GameObject:
@@ -3060,6 +3064,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 673e2a6dfabfdfb4992fb260bb706292, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: 0
 --- !u!61 &1975485198
 BoxCollider2D:
   m_ObjectHideFlags: 0

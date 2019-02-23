@@ -44,7 +44,8 @@ public class Harmony : MonoBehaviour
     void Update()
 {
     GameObject.FindWithTag("Harmony").transform.localScale = new Vector3(difference / 100 * 4 + 1, difference / 100 * 4 + 1, difference / 100 * 4 + 1);
-
+    GameObject.FindWithTag("Player").GetComponent<HPlayer>().damage = difference;
+    
         if (changed)
         {
             if (index < 30)
