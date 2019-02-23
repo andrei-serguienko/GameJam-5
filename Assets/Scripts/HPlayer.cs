@@ -55,14 +55,14 @@ public class HPlayer : NetworkBehaviour
         }
     }
 
-    [Command]
+    //[Command]
     public void CmdInstantiateTwin()
     {
         HTwin htwin = twin.GetComponent<HTwin>();
-        htwin.player = this;
+        htwin.player = gameObject.GetComponent<HPlayer>();
         htwin.imitateAtTime = Time.time + 3;
-        GameObject clientTwin = (GameObject)Instantiate(twin, transform.position, transform.rotation);
-        NetworkServer.Spawn(clientTwin);
+        GameObject clientTwin = (GameObject)Instantiate(twin, transform.position + new Vector3(0, 5,0), transform.rotation);
+        //NetworkServer.Spawn(clientTwin);
     }
 
     void OnTwinChange(GameObject gO) { 
