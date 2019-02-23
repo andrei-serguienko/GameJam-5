@@ -1,0 +1,25 @@
+fileFormatVersion: 2
+guid: cfffa437fd2a16e4287db6cc05bd3a80
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Volkhov
+  fontNames:
+  - Volkhov
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 6a9170a09f852ce40b2b20136dd48166, type: 3}
+  - {fileID: 12800000, guid: 93e26a01c82dbfc40a051f8306ef5ae1, type: 3}
+  - {fileID: 12800000, guid: 21ec0c24fc7ebcb4b88a037ead274820, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

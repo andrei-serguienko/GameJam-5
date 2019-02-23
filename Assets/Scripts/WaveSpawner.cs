@@ -1,12 +1,19 @@
 ﻿ using System.Collections;
  using UnityEditor.PackageManager;
  using UnityEngine;
+ using UnityEngine.Serialization;
+ using UnityEngine.UI;
 
 public class WaveSpawner : MonoBehaviour
 {
-    
-    public enum SpawnState { SPAWNING, WAITING, COUNTING }
-    
+
+    public enum SpawnState
+    {
+        SPAWNING,
+        WAITING,
+        COUNTING
+    };
+   
     [System.Serializable]
     public class Wave
     {
@@ -28,6 +35,8 @@ public class WaveSpawner : MonoBehaviour
 
     public SpawnState state = SpawnState.COUNTING;
 
+    [FormerlySerializedAs("WaveAnnounce")] public GameObject waveAnnounce;
+
     private void Start()
     {
         waveCountDown = timeBetweenWaves;
@@ -45,7 +54,11 @@ public class WaveSpawner : MonoBehaviour
             {
                 return;
             }
+        } else if (state == SpawnState.COUNTING)
+        {
+            BeforeWave();
         }
+        
         
         if (waveCountDown <= 0)
         {
@@ -107,6 +120,48 @@ public class WaveSpawner : MonoBehaviour
         Transform sp = spawnPoints[Random.Range(0, spawnPoints.Length)];
         Transform create = Instantiate(enemy, sp.transform);
         create.position = sp.position;
+    }
+
+    void BeforeWave()
+    {
+        waveAnnounce.SetActive(true);
+        waveAnnounce.GetComponent<Text>().text = RomainText();
+        StartCoroutine("Announce");
+    }
+
+    private string RomainText()
+    {
+        switch (nextWave)
+        {
+            case 0:
+                return "WAVE  I";
+            case 1:
+                return "WAVE  II";
+            case 2:
+                return "WAVE  III";
+            case 3:
+                return "WAVE  IV";
+            case 4:
+                return "WAVE  V";
+            case 5:
+                return "WAVE  VI";
+            case 6:
+                return "WAVE  VII";
+            case 7:
+                return "WAVE  VIII";
+            case 8:
+                return "WAVE  IX";
+            case 9:
+                return "WAVE  X";
+            default:
+                return "WAVE";
+        }
+    }
+
+    IEnumerator Announce()
+    {
+        yield return new WaitForSeconds(3f);
+        waveAnnounce.SetActive(false);
     }
 }
 
