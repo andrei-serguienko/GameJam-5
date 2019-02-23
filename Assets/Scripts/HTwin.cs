@@ -49,7 +49,6 @@ public class HTwin : MonoBehaviour
     void Move(Vector3 movement)
     {
         transform.position += movement * Time.deltaTime;
-        print(movement.x);
         if (movement.x < 0)
         {
             Flip("left");
@@ -101,7 +100,6 @@ public class HTwin : MonoBehaviour
                     Jump();
                     break;
                 case "leftAttack":
-                    print("At");
                     LeftAttack();
                     break;
                 case "rightAttack":

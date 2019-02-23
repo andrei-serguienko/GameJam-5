@@ -46,11 +46,11 @@ public class HPlayer : MonoBehaviour
             healthGameObjects.Add(cube);
         }
         
-        takeDamage(1);
     }
     
     public void takeDamage(int dmg)
     {
+        print("AIE !");
         for(int i = 0; i <= dmg; ++i)
             Destroy((GameObject)healthGameObjects[healthGameObjects.Count - 1]);
     }
@@ -120,7 +120,6 @@ public class HPlayer : MonoBehaviour
 
         if (Input.GetKeyDown("space"))
         {
-            print(anim.GetCurrentAnimatorStateInfo(0).IsName("FirstAttack"));
             if (anim.GetCurrentAnimatorStateInfo(0).IsName("FirstAttack"))
             {
                 anim.SetBool("SecondAttack", true);
