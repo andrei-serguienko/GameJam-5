@@ -150,4 +150,10 @@ public class HTwin : MonoBehaviour
             anim.SetBool("isFalling", false);
         }
     }
+
+    public void Attack()
+    {
+        
+    }
+    
 }
