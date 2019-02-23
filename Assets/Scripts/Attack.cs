@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class Attack : MonoBehaviour
 {
+    public float damage;
+    
     // Start is called before the first frame update
     void Start()
     {
-        
     }
 
     // Update is called once per frame
     void Update()
     {
-        
     }
 
     public void cast()
@@ -28,6 +28,8 @@ public class Attack : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        damage = GameObject.FindWithTag("Player").GetComponent<HPlayer>().damage;
+
         if (other.gameObject.tag == "Enemy")
         {    
             other.gameObject.GetComponent<Enemy>().takeDamage(50);
@@ -36,7 +38,7 @@ public class Attack : MonoBehaviour
             
         } else if (other.gameObject.tag == "GroundEnemy")
         {
-            other.gameObject.GetComponent<GroundEnemy>().takeDamage(50);
+            other.gameObject.GetComponent<GroundEnemy>().takeDamage(damage);
 
         }
         
@@ -44,6 +46,13 @@ public class Attack : MonoBehaviour
         {
             other.gameObject.GetComponent<HPlayer>().takeDamage();
         }
+        
+        else if (other.gameObject.tag == "GroundEnemy" && gameObject.tag == "GroundEnemyTwin")
+        {
+            other.gameObject.GetComponent<GroundEnemy>().takeDamage(damage);
+        }
+        
+        
     }
 
 }

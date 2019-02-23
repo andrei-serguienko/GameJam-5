@@ -9,7 +9,7 @@ public class GroundEnemy : MonoBehaviour
 
     public int enemySpeed;
 
-    public int health = 200;
+    public float health = 100;
     // Start is called before the first frame update
     void Start()
     {
@@ -49,7 +49,7 @@ public class GroundEnemy : MonoBehaviour
         }
     }
 
-    public void takeDamage(int dmg)
+    public void takeDamage(float dmg)
     {
         gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
         Invoke("Attack", 2f);
@@ -69,7 +69,7 @@ public class GroundEnemy : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            other.gameObject.GetComponent<Rigidbody2D>().AddForce(-other.relativeVelocity * 300, ForceMode2D.Impulse);
+            other.gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(-other.relativeVelocity.x * 300, 0), ForceMode2D.Impulse);
             gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
             Invoke("Attack", 3f);
         }

@@ -10,6 +10,7 @@ TagManager:
   - Twin
   - GroundEnemy
   - Harmony
+  - GroundEnemyTag
   layers:
   - Default
   - TransparentFX

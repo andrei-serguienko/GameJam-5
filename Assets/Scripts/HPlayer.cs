@@ -18,6 +18,8 @@ public class HPlayer : MonoBehaviour
     private ArrayList healthGameObjects;
     private float healthTopBarPadding = 1;
 
+    public float damage;
+
     private Vector3 lastPos;
 
     public int forceJump;
