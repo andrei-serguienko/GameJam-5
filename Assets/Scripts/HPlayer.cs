@@ -199,7 +199,7 @@ public class HPlayer : MonoBehaviour
 
     private void Update()
     {
-//        Vector3 currentPos = gameObject.transform.position;
+        print(jumping);
         if (gameObject.GetComponent<Rigidbody2D>().velocity.y > 1)
         {
             anim.SetBool("isJumping", true);
