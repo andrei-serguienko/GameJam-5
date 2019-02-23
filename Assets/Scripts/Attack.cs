@@ -28,7 +28,6 @@ public class Attack : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        print(other);
         if (other.gameObject.tag == "Enemy")
         {
             other.gameObject.GetComponent<Enemy>().takeDamage(100);

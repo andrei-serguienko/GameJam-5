@@ -17,6 +17,8 @@ public class HPlayer : MonoBehaviour
     private ArrayList healthGameObjects;
     private float healthTopBarPadding = 1;
 
+    private Vector3 lastPos;
+
     public int forceJump;
 
     private Animator anim;
@@ -89,6 +91,7 @@ public class HPlayer : MonoBehaviour
 
         if (movement.x < 0)
         {
+            anim.SetBool("Running", true);
             Flip("left");
             movesQueue.Enqueue("move");
             positionQueue.Enqueue(movement);
@@ -96,10 +99,15 @@ public class HPlayer : MonoBehaviour
 }
         else if (movement.x > 0)
         {
+            anim.SetBool("Running", true);
             Flip("right");
             movesQueue.Enqueue("move");
             positionQueue.Enqueue(movement);
             doesMove = true;
+        }
+        else
+        {
+            anim.SetBool("Running", false);
         }
 
         if (Input.GetKeyDown("w") && jumping == false)
@@ -110,27 +118,19 @@ public class HPlayer : MonoBehaviour
             doesMove = true;
         }
 
-        if (Input.GetKeyDown("space") && attack == false)
+        if (Input.GetKeyDown("space"))
         {
-            if (facingRight == true)
+            print(anim.GetCurrentAnimatorStateInfo(0).IsName("FirstAttack"));
+            if (anim.GetCurrentAnimatorStateInfo(0).IsName("FirstAttack"))
             {
-                transform.GetChild(0).gameObject.SetActive(true);
-                transform.GetChild(0).GetComponent<Attack>().cast();
-                Invoke("EnableAttack", timeBetweenAttack);
-                movesQueue.Enqueue("rightAttack");
-                doesMove = true;
+                anim.SetBool("SecondAttack", true);
             }
             else
             {
-                transform.GetChild(1).gameObject.SetActive(true);
-                transform.GetChild(1).GetComponent<Attack>().cast();
-                Invoke("EnableAttack", timeBetweenAttack);
-                movesQueue.Enqueue("leftAttack");
-                doesMove = true;
+                anim.SetTrigger("attack");
             }
             attack = true;
-            print(anim);
-            anim.SetTrigger("attack");
+            
         }
         if (!doesMove)
         {
@@ -139,6 +139,25 @@ public class HPlayer : MonoBehaviour
        }
     }
 
+    public void Attack()
+    {
+        if (facingRight == true)
+        {
+            transform.GetChild(0).gameObject.SetActive(true);
+            transform.GetChild(0).GetComponent<Attack>().cast();
+//            Invoke("EnableAttack", timeBetweenAttack);
+            movesQueue.Enqueue("rightAttack");
+        }
+        else
+        {
+            transform.GetChild(1).gameObject.SetActive(true);
+            transform.GetChild(1).GetComponent<Attack>().cast();
+//            Invoke("EnableAttack", timeBetweenAttack);
+            movesQueue.Enqueue("leftAttack");
+        }
+        
+    }
+    
     void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.tag == "Ground")
@@ -154,5 +173,31 @@ public class HPlayer : MonoBehaviour
     void EnableAttack()
     {
         attack = false;
+    }
+
+    private void Update()
+    {
+//        Vector3 currentPos = gameObject.transform.position;
+        if (gameObject.GetComponent<Rigidbody2D>().velocity.y > 1)
+        {
+            anim.SetBool("isJumping", true);
+        } else
+        {
+            anim.SetBool("isJumping", false);
+        }
+        print(gameObject.GetComponent<Rigidbody2D>().velocity.y);
+        if (gameObject.GetComponent<Rigidbody2D>().velocity.y < -0.5)
+        {
+            anim.SetBool("isFalling", true);
+        } else
+        {
+            anim.SetBool("isFalling", false);
+        }
+//        else
+//        {
+//            anim.SetBool("Running", false);
+//        }
+//
+//        lastPos = currentPos;
     }
 }
