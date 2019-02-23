@@ -19,8 +19,11 @@ public class HPlayer : MonoBehaviour
 
     public int forceJump;
 
+    private Animator anim;
+
     private void Start()
     {
+        anim = GetComponent<Animator>();
         
         healthGameObjects = new ArrayList();
         for(int i=0;i<health;i++)
@@ -40,6 +43,19 @@ public class HPlayer : MonoBehaviour
             cube.transform.parent = gameObject.transform;
             healthGameObjects.Add(cube);
         }
+        
+        takeDamage(1);
+    }
+    
+    public void takeDamage(int dmg)
+    {
+        for(int i = 0; i <= dmg; ++i)
+            Destroy((GameObject)healthGameObjects[healthGameObjects.Count - 1]);
+    }
+
+    public void regenHealth(int qt)
+    {
+        //Create a cube health
     }
 
     void Flip(string arg)
@@ -113,6 +129,8 @@ public class HPlayer : MonoBehaviour
                 doesMove = true;
             }
             attack = true;
+            print(anim);
+            anim.SetTrigger("attack");
         }
         if (!doesMove)
         {
