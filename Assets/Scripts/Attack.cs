@@ -25,4 +25,14 @@ public class Attack : MonoBehaviour
     {
         gameObject.SetActive(false);
     }
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        print(other);
+        if (other.gameObject.tag == "Enemy")
+        {
+            other.gameObject.GetComponent<Enemy>().takeDamage(100);
+        }
+    }
+
 }

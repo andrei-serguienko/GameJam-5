@@ -7,6 +7,8 @@ public class Enemy : MonoBehaviour
     private GameObject player;
 
     public int enemySpeed;
+
+    public int health = 100;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,5 +24,20 @@ public class Enemy : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {}
+    {
+        checkAlive();
+    }
+
+    public void takeDamage(int dmg)
+    {
+        health -= dmg;
+    }
+
+    void checkAlive()
+    {
+        if (health <= 0)
+        {
+            Destroy(gameObject);
+        }
+    }
 }

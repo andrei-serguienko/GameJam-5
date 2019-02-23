@@ -1,5 +1,6 @@
 ﻿ using System.Collections;
-using UnityEngine;
+ using UnityEditor.PackageManager;
+ using UnityEngine;
 
 public class WaveSpawner : MonoBehaviour
 {
@@ -17,6 +18,8 @@ public class WaveSpawner : MonoBehaviour
 
     public Wave[] waves;
     private int nextWave = 0;
+
+    public Transform[] spawnPoints;
 
     public float timeBetweenWaves = 5f;
     public float waveCountDown;
@@ -36,7 +39,7 @@ public class WaveSpawner : MonoBehaviour
         {
             if (!EnemyIsAlive())
             {
-                
+                WaveCompleted();
             }
             else
             {
@@ -58,6 +61,22 @@ public class WaveSpawner : MonoBehaviour
         }
     }
 
+    void WaveCompleted()
+    {
+        state = SpawnState.COUNTING;
+        waveCountDown = timeBetweenWaves;
+
+        if (nextWave + 1 > waves.Length - 1)
+        {
+            Debug.LogError("AllWaveComplete");
+        }
+        else
+        {
+            nextWave++;
+        }
+        
+    }
+    
     bool EnemyIsAlive()
     {
         searchCountDown -= Time.deltaTime;
@@ -74,7 +93,7 @@ public class WaveSpawner : MonoBehaviour
         for (int i = 0; i < wave.count; ++i)
         {
             SpawnEnemy(wave.enemy);
-            yield return new WaitForSeconds(1f/wave.rate);
+            yield return new WaitForSeconds(wave.rate);
         }
 
 
@@ -85,7 +104,8 @@ public class WaveSpawner : MonoBehaviour
 
     void SpawnEnemy(Transform enemy)
     {
-        print("Spawning");
+        Transform sp = spawnPoints[Random.Range(0, spawnPoints.Length)];
+        Instantiate(enemy, sp.transform); 
     }
 }
 
