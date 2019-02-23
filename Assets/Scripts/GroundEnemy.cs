@@ -69,6 +69,7 @@ public class GroundEnemy : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
+            anim.SetTrigger("Attacking");
             other.gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(-other.relativeVelocity.x * 300, 0), ForceMode2D.Impulse);
             gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
             Invoke("Attack", 3f);

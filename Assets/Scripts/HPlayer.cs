@@ -39,7 +39,7 @@ public class HPlayer : MonoBehaviour
         
     }
 
-    GameObject AddHealth()
+    public GameObject AddHealth()
     {
         float spriteHeight = GetComponent<SpriteRenderer>().bounds.size.y;
         float spriteWidth = GetComponent<SpriteRenderer>().bounds.size.x;
@@ -70,11 +70,6 @@ public class HPlayer : MonoBehaviour
     private void Die()
     {
         SceneManager.LoadScene("GameOver");
-    }
-
-    public void regenHealth(int qt)
-    {
-        //Create a cube health
     }
 
     void Flip(string arg)

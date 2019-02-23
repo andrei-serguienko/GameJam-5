@@ -17,8 +17,8 @@ public class WaveSpawner : MonoBehaviour
     public class Wave
     {
        public string name;
-       public Transform enemy;
-       public int count;
+       public Transform[] enemy;
+       public int[] count;
        public float rate;
     }
 
@@ -84,6 +84,7 @@ public class WaveSpawner : MonoBehaviour
         }
         else
         {
+            GameObject.FindGameObjectWithTag("Player").GetComponent<HPlayer>().AddHealth();
             nextWave++;
         }
         
@@ -95,16 +96,31 @@ public class WaveSpawner : MonoBehaviour
         if (searchCountDown <= 0)
             return true;
         searchCountDown = 1f;
-        return GameObject.FindGameObjectWithTag("Enemy");
+        return GameObject.FindGameObjectWithTag("Enemy") || GameObject.FindGameObjectWithTag("GroundEnemy") ;
     }
 
     IEnumerator SpawnWave(Wave wave)
     {
         state = SpawnState.SPAWNING;
 
-        for (int i = 0; i < wave.count; ++i)
+        for (int i = 0; i < wave.count[0]; ++i)
         {
-            SpawnEnemy(wave.enemy);
+            SpawnEnemy(wave.enemy[0]);
+            yield return new WaitForSeconds(wave.rate);
+        }
+        for (int i = 0; i < wave.count[1]; ++i)
+        {
+            SpawnEnemy(wave.enemy[1]);
+            yield return new WaitForSeconds(wave.rate);
+        }
+        for (int i = 0; i < wave.count[2]; ++i)
+        {
+            SpawnEnemy(wave.enemy[2]);
+            yield return new WaitForSeconds(wave.rate);
+        }
+        for (int i = 0; i < wave.count[3]; ++i)
+        {
+            SpawnEnemy(wave.enemy[3]);
             yield return new WaitForSeconds(wave.rate);
         }
 
