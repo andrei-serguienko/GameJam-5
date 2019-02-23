@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class HPlayer : MonoBehaviour
 {
@@ -68,7 +69,7 @@ public class HPlayer : MonoBehaviour
 
     private void Die()
     {
-        throw new NotImplementedException();
+        SceneManager.LoadScene("GameOver");
     }
 
     public void regenHealth(int qt)
