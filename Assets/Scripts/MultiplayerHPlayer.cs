@@ -14,7 +14,10 @@ public class MultiplayerHPlayer : NetworkBehaviour
     public Queue<Vector3> positionQueue = new Queue<Vector3>();
     private bool jumping = false;
     private bool attack = false;
+
+    [SyncVar(hook = "OnFacingRightChange")]
     private bool facingRight = true;
+
     public int timeConstant = 500;
     private int maxHealth = 5;
     private int currentHealth;
@@ -28,14 +31,29 @@ public class MultiplayerHPlayer : NetworkBehaviour
     public int forceJump;
 
     private Animator anim;
+    private bool setup = false;
 
     private void Start()
     {
-        print(isLocalPlayer);
-        if(!isLocalPlayer) {
-            Destroy(this);
-            return; 
-        }
+
+    }
+
+    private void SetupCamera()
+    {
+        GameObject cam = new GameObject();
+        cam.AddComponent<Camera>();
+        cam.AddComponent<MultiplayerCameraFollower>();
+        var mul = cam.GetComponent<MultiplayerCameraFollower>();
+
+        cam.transform.position = new Vector3(2.25f, 7, -2.73f);
+        mul.player = gameObject;
+        Instantiate(cam, new Vector3(transform.position.x, transform.position.y, -18), Quaternion.identity);
+    }
+
+    public override void OnStartLocalPlayer()
+    {
+        base.OnStartLocalPlayer();
+        SetupCamera();
 
         anim = GetComponent<Animator>();
 
@@ -44,6 +62,7 @@ public class MultiplayerHPlayer : NetworkBehaviour
         {
             healthGameObjects.Add(AddHealth());
         }
+        setup = true;
     }
 
     GameObject AddHealth()
@@ -84,6 +103,7 @@ public class MultiplayerHPlayer : NetworkBehaviour
         //Create a cube health
     }
 
+
     void Flip(string arg)
     {
         if (arg == "left")
@@ -104,8 +124,17 @@ public class MultiplayerHPlayer : NetworkBehaviour
         }
     }
 
+    [Command]
+    void CmdFlip(string arg)
+    {
+        Flip(arg);
+    }
+
     void FixedUpdate()
     {
+        if (!setup) return;
+        if (!isLocalPlayer) return;
+
         bool doesMove = false;
         float moveHorizontal = Input.GetAxis("Horizontal");
 
@@ -117,6 +146,7 @@ public class MultiplayerHPlayer : NetworkBehaviour
         {
             anim.SetBool("Running", true);
             Flip("left");
+            CmdFlip("left");
             movesQueue.Enqueue("move");
             positionQueue.Enqueue(movement);
             doesMove = true;
@@ -125,6 +155,7 @@ public class MultiplayerHPlayer : NetworkBehaviour
         {
             anim.SetBool("Running", true);
             Flip("right");
+            CmdFlip("right");
             movesQueue.Enqueue("move");
             positionQueue.Enqueue(movement);
             doesMove = true;
@@ -181,6 +212,12 @@ public class MultiplayerHPlayer : NetworkBehaviour
 
     }
 
+    public void OnFacingRightChange(bool newFacingRight)
+    {
+        facingRight = newFacingRight;
+        GetComponent<SpriteRenderer>().flipX = !facingRight;
+    }
+
     void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.tag == "Ground")
@@ -208,6 +245,7 @@ public class MultiplayerHPlayer : NetworkBehaviour
 
     private void Update()
     {
+        if (!setup) return;
         //        Vector3 currentPos = gameObject.transform.position;
         if (gameObject.GetComponent<Rigidbody2D>().velocity.y > 1)
         {
