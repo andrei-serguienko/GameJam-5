@@ -13,10 +13,14 @@ public class HTwin : MonoBehaviour
     private int forceJump;
     private int timeTwin = 3;
 
+    private Animator anim;
+
     public HPlayer player;
 
     private void Start()
     {
+        anim = GetComponent<Animator>();
+        
         speed = player.speed;
         timeBetweenAttack = player.timeBetweenAttack;
         forceJump = player.forceJump;
@@ -69,6 +73,8 @@ public class HTwin : MonoBehaviour
         transform.GetChild(0).gameObject.SetActive(true);
         transform.GetChild(0).GetComponent<Attack>().cast();
         Invoke("EnableAttack", timeBetweenAttack);
+        anim.SetTrigger("attack");
+
     }
 
     void RightAttack()
@@ -76,6 +82,7 @@ public class HTwin : MonoBehaviour
         transform.GetChild(1).gameObject.SetActive(true);
         transform.GetChild(1).GetComponent<Attack>().cast();
         Invoke("EnableAttack", timeBetweenAttack);
+        anim.SetTrigger("attack");
     }
 
     void FixedUpdate()
