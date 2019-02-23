@@ -5,7 +5,8 @@ using UnityEngine;
 public class Attack : MonoBehaviour
 {
     public float damage;
-    
+
+    public GameObject particleEffect;
     // Start is called before the first frame update
     void Start()
     {
@@ -55,4 +56,10 @@ public class Attack : MonoBehaviour
         
     }
 
+    private void OnEnable()
+    {
+//        Instantiate(particleEffect, tr);
+        
+gameObject.GetComponent<ParticleSystem>().Emit(100);    
+    }
 }
