@@ -16,6 +16,8 @@ public class Harmony : MonoBehaviour
     public float waveLengthInSeconds = 2.0f;
     private bool changed = false;
 
+    private float difference;
+
     AudioSource audioSource;
     int timeIndex = 0;
 
@@ -41,6 +43,8 @@ public class Harmony : MonoBehaviour
 
     void Update()
 {
+    GameObject.FindWithTag("Harmony").transform.localScale = new Vector3(difference / 100 * 5, difference / 100 * 5, difference / 100 * 5);
+
         if (changed)
         {
             if (index < 30)
@@ -55,21 +59,24 @@ public class Harmony : MonoBehaviour
         }
         else
         {
-            float difference = Mathf.Abs(Vector3.Distance(player.transform.position, twin.transform.position));
-            difference = Mathf.Exp(difference);
-            if (difference > 100)
-            {
+            difference = Mathf.Abs(Vector3.Distance(player.transform.position, twin.transform.position));
+//            difference = Mathf.Sqrt(difference);
+//            if (difference > 100)
+//            {
+//                difference = 100;
+//            }
+            difference = Mathf.Abs(difference / 30) * 100;
+            difference = 100- difference;
+
+//            float inRange = 40 - ((difference / 100) * 40 + 1);
+            if (difference < 1)
+                difference = 1;
+            else if (difference > 100)
                 difference = 100;
-            }
 
-            float inRange = 40 - ((difference / 100) * 40 + 1);
-            if (inRange < 1)
-                inRange = 1;
-            else if (inRange > 40)
-                inRange = 40;
-
-            modFrequency = Mathf.Round(inRange);
+            modFrequency = Mathf.Round(difference);
             changed = true;
+
         }
     }
 
