@@ -14,7 +14,10 @@ public class HPlayer : NetworkBehaviour
     public GameObject twin;
     private bool jumping = false;
     private bool attack = false;
-    private bool facingRight = true;
+
+    [SyncVar(hook = "OnFacingRightChange")]
+    public bool facingRight = true;
+
     public int timeConstant = 500;
     private int maxHealth = 5;
     private int currentHealth;
@@ -69,7 +72,13 @@ public class HPlayer : NetworkBehaviour
         currentHealth += 1;
         return cube;
     }
-    
+
+    void OnFacingRightChange(bool newFacingRight)
+    {
+        facingRight = newFacingRight;
+        Debug.Log("Variable 'facingRight' is now" + facingRight);
+    }
+
     public void takeDamage()
     {
         Destroy((GameObject) healthGameObjects[currentHealth - 1]);
@@ -88,7 +97,8 @@ public class HPlayer : NetworkBehaviour
         //Create a cube health
     }
 
-    void Flip(string arg)
+    [Command]
+    public void CmdFlip(string arg)
     {
         if (arg == "left")
         {
@@ -120,7 +130,7 @@ public class HPlayer : NetworkBehaviour
         if (movement.x < 0)
         {
             anim.SetBool("Running", true);
-            Flip("left");
+            CmdFlip("left");
             movesQueue.Enqueue("move");
             positionQueue.Enqueue(movement);
             doesMove = true;
@@ -128,7 +138,7 @@ public class HPlayer : NetworkBehaviour
         else if (movement.x > 0)
         {
             anim.SetBool("Running", true);
-            Flip("right");
+            CmdFlip("right");
             movesQueue.Enqueue("move");
             positionQueue.Enqueue(movement);
             doesMove = true;

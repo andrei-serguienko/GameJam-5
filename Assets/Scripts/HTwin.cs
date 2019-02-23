@@ -92,7 +92,7 @@ public class HTwin : MonoBehaviour
     void FixedUpdate()
     {
 
-        if (Time.time > timeTwin)
+        if (Time.time > imitateAtTime)
             switch (player.movesQueue.Dequeue())
             {
                 case "move":
