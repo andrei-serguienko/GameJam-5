@@ -8,6 +8,8 @@ TagManager:
   - Title
   - Enemy
   - Twin
+  - GroundEnemy
+  - Harmony
   layers:
   - Default
   - TransparentFX
@@ -22,7 +24,7 @@ TagManager:
   - Attack
   - Enemy
   - Twin
-  - 
+  - Ground
   - 
   - 
   - 
