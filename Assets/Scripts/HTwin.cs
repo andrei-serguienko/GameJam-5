@@ -28,9 +28,7 @@ public class HTwin : MonoBehaviour
         {
             if (facingRight)
             {
-                Vector3 theScale = transform.localScale;
-                theScale.x *= -1;
-                transform.localScale = theScale;
+                GetComponent<SpriteRenderer>().flipX = true;
                 facingRight = false;
             }
         }
@@ -38,9 +36,7 @@ public class HTwin : MonoBehaviour
         {
             if (!facingRight)
             {
-                Vector3 theScale = transform.localScale;
-                theScale.x *= -1;
-                transform.localScale = theScale;
+                GetComponent<SpriteRenderer>().flipX = false;
                 facingRight = true;
             }
         }
@@ -70,29 +66,16 @@ public class HTwin : MonoBehaviour
 
     void LeftAttack()
     {
-        if (attack == false) { 
-            attack = true;
-            if (facingRight == true)
-            {
-                transform.GetChild(0).gameObject.SetActive(true);
-                transform.GetChild(0).GetComponent<Attack>().cast();
-                Invoke("EnableAttack", timeBetweenAttack);
-            }
-        }
+        transform.GetChild(0).gameObject.SetActive(true);
+        transform.GetChild(0).GetComponent<Attack>().cast();
+        Invoke("EnableAttack", timeBetweenAttack);
     }
 
     void RightAttack()
     {
-        if (attack == false)
-        {
-            attack = true;
-            if (facingRight == false)
-            {
-                transform.GetChild(1).gameObject.SetActive(true);
-                transform.GetChild(1).GetComponent<Attack>().cast();
-                Invoke("EnableAttack", timeBetweenAttack);
-            }
-        }
+        transform.GetChild(1).gameObject.SetActive(true);
+        transform.GetChild(1).GetComponent<Attack>().cast();
+        Invoke("EnableAttack", timeBetweenAttack);
     }
 
     void FixedUpdate()
@@ -108,6 +91,7 @@ public class HTwin : MonoBehaviour
                     Jump();
                     break;
                 case "leftAttack":
+                    print("At");
                     LeftAttack();
                     break;
                 case "rightAttack":
