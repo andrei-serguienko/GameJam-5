@@ -14,7 +14,7 @@ public class Enemy : MonoBehaviour
     void Start()
     {
         anim = GetComponent<Animator>();
-        Invoke("Attack", 3f);
+        InvokeRepeating("Attack", 3f, 5f);
         player = GameObject.FindGameObjectWithTag("Player");
               
     }
