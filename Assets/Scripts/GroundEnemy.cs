@@ -89,7 +89,7 @@ public class GroundEnemy : MonoBehaviour
         {
             anim.SetTrigger("Attacking");
             GetComponent<AudioSource>().PlayOneShot(MyAudio[1]);
-            other.gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(-other.relativeVelocity.x * 300, 0), ForceMode2D.Impulse);
+            other.gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(-other.relativeVelocity.x * 100, 0), ForceMode2D.Impulse);
 //            gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
             Invoke("Attack", 3f);
         }
