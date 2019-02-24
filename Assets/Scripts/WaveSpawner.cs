@@ -22,10 +22,12 @@ public class WaveSpawner : MonoBehaviour
        public float rate;
     }
 
+    
     public Wave[] waves;
     private int nextWave = 0;
 
     public Transform[] spawnPoints;
+    public GameObject[] platforms;
 
     public float timeBetweenWaves = 5f;
     public float waveCountDown;
@@ -84,6 +86,7 @@ public class WaveSpawner : MonoBehaviour
         }
         else
         {
+            AppearPlatform();
             GameObject.FindGameObjectWithTag("Player").GetComponent<HPlayer>().AddHealth();
             nextWave++;
         }
@@ -142,6 +145,11 @@ public class WaveSpawner : MonoBehaviour
         waveAnnounce.SetActive(true);
         waveAnnounce.GetComponent<Text>().text = RomainText();
         StartCoroutine("Announce");
+    }
+
+    private void AppearPlatform()
+    {
+        platforms[nextWave].SetActive(true);  
     }
 
     private string RomainText()
