@@ -49,7 +49,6 @@ public class GroundEnemy : MonoBehaviour
             anim.SetBool("Moving", true);
             if (!Played)
             {
-                print("SS");
                 GetComponent<AudioSource>().Play();
                 Played = true;
             }
@@ -98,6 +97,7 @@ public class GroundEnemy : MonoBehaviour
 
     private void OnCollisionStay2D(Collision2D other)
     {
+        if(other.gameObject.tag != "Player")
         touching = true;
     }
 
