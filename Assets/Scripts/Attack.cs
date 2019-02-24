@@ -10,6 +10,7 @@ public class Attack : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        cast();
     }
 
     // Update is called once per frame
@@ -24,13 +25,16 @@ public class Attack : MonoBehaviour
 
     void destroy()
     {
-        gameObject.SetActive(false);
+//        gameObject.SetActive(false);
+        Destroy(gameObject);
+        
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         damage = GameObject.FindWithTag("Player").GetComponent<HPlayer>().damage;
 
+        print(other);
         if (other.gameObject.tag == "Enemy")
         {    
             other.gameObject.GetComponent<Enemy>().takeDamage(50);
@@ -54,6 +58,13 @@ public class Attack : MonoBehaviour
             other.gameObject.GetComponent<Enemy>().takeDamage(damage);
         }
         
+        
+    }
+
+    
+
+    private void OnDisable()
+    {
         
     }
 
