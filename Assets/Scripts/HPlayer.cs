@@ -19,7 +19,7 @@ public class HPlayer : MonoBehaviour
     public int timeConstant = 500;
 //    private int maxHealth = 5;
     private int currentHealth = 100;
-    private int currentArmor = 25;
+    private int currentArmor = 20;
         
     public GameObject UiHealth;
     public GameObject UiArmor;
@@ -38,6 +38,8 @@ public class HPlayer : MonoBehaviour
     public int forceJump;
 
     private Animator anim;
+
+    public GameObject HitUI;
 
     private void Start()
     {
@@ -79,9 +81,29 @@ public class HPlayer : MonoBehaviour
         }
     }
     
-    public void takeDamage()
+    public void takeDamage(int qt)
     {
-//        AddHealth(25);
+        HitUI.SetActive(true);
+        if (currentArmor > 0)
+        {
+            currentArmor -= qt;
+            if (currentArmor < 0)
+            {
+                currentHealth += currentArmor;
+                currentArmor = 0;
+                
+            }
+            return;   
+        }
+        else
+        {
+            print("TAKE");
+            currentHealth -= qt;
+            
+        }
+
+        if (currentHealth <= 0)
+            Die();
     }
 
     private void Die()
@@ -236,10 +258,10 @@ public class HPlayer : MonoBehaviour
             jumping = false; 
         }else if (other.gameObject.tag == "Enemy")
         {
-            takeDamage();
+            takeDamage(20);
         } else if (other.gameObject.tag == "GroundEnemy")
         {
-            takeDamage();
+            takeDamage(20);
         }
         else
         {
@@ -268,7 +290,7 @@ public class HPlayer : MonoBehaviour
     private void Update()
     {
         UpdateUi();
-        print(currentArmor);
+        print(currentHealth);
         if (gameObject.GetComponent<Rigidbody2D>().velocity.y > 1)
         {
             anim.SetBool("isJumping", true);

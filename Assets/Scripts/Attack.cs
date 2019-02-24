@@ -43,7 +43,7 @@ public class Attack : MonoBehaviour
         }
         else if (other.gameObject.tag == "Player")
         {
-            other.gameObject.GetComponent<HPlayer>().takeDamage();
+            other.gameObject.GetComponent<HPlayer>().takeDamage(20);
         }
         else if (other.gameObject.tag == "GroundEnemyTwin" && gameObject.tag == "Twin")
         {

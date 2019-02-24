@@ -64,11 +64,11 @@ public class Enemy : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            other.gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(-other.relativeVelocity.x * 300, 0), ForceMode2D.Impulse);
+            other.gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(-other.relativeVelocity.x * 10, 0), ForceMode2D.Impulse);
             gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
             gameObject.GetComponent<Rigidbody2D>().rotation = 0;
             Invoke("Attack", 3f);
-        } else if (other.gameObject.tag == "Ground")
+        } else if (other.gameObject.tag == "Ground" || other.gameObject.tag == "Wall" || other.gameObject.tag == "WallD")
         {
             gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
             gameObject.GetComponent<Rigidbody2D>().rotation = 0;
