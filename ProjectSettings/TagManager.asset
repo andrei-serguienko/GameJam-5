@@ -12,6 +12,8 @@ TagManager:
   - Harmony
   - EnemyTwin
   - GroundEnemyTwin
+  - Wall
+  - WallD
   layers:
   - Default
   - TransparentFX

@@ -19,7 +19,12 @@ public class HPlayer : MonoBehaviour
     private ArrayList healthGameObjects;
     private float healthTopBarPadding = 1;
 
+    private bool enableMove = true;
+    private bool wallRight = false;
+    
     public float damage;
+
+    private bool enableToJumpWall = false;
 
     private Vector3 lastPos;
 
@@ -97,8 +102,15 @@ public class HPlayer : MonoBehaviour
         bool doesMove = false;
         float moveHorizontal = Input.GetAxis("Horizontal");
 
-        Vector3 movement = new Vector3(moveHorizontal * speed, 0, 0);
 
+
+        if (!enableMove)
+        {
+            moveHorizontal = 0;
+        }
+
+        Vector3 movement = new Vector3(moveHorizontal * speed, 0, 0);
+        
         transform.position += movement * Time.deltaTime;
 
         if (movement.x < 0)
@@ -124,7 +136,22 @@ public class HPlayer : MonoBehaviour
 
         if (Input.GetKeyDown("w") && jumping == false)
         {
-            gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(0, forceJump);
+            if (enableToJumpWall)
+            {
+                gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+                if (wallRight)
+                {
+                    gameObject.GetComponent<Rigidbody2D>().AddForce( new Vector2(-forceJump* 5000, forceJump*8000));
+                }
+                else
+                {
+                    gameObject.GetComponent<Rigidbody2D>().AddForce( new Vector2(forceJump* 5000, forceJump*8000));
+                }
+            }
+            else
+            {
+                gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, forceJump*8000));
+            }
             movesQueue.Enqueue("jump");
             jumping = true;
             doesMove = true;
@@ -174,7 +201,20 @@ public class HPlayer : MonoBehaviour
         if (other.gameObject.tag == "Ground")
         {
             jumping = false;
-        } else if (other.gameObject.tag == "Enemy")
+            enableToJumpWall = false;
+            enableMove = true;
+            
+        } else if (other.gameObject.tag == "Wall")
+        {
+            wallRight = false;
+            enableToJumpWall = true;
+            jumping = false; 
+        } else if (other.gameObject.tag == "WallD")
+        {
+            wallRight = true;
+            enableToJumpWall = true;
+            jumping = false; 
+        }else if (other.gameObject.tag == "Enemy")
         {
             takeDamage();
         } else if (other.gameObject.tag == "GroundEnemy")
@@ -185,16 +225,29 @@ public class HPlayer : MonoBehaviour
         {
             jumping = true;
         }
+        
     }
 
-    void EnableAttack()
+    private void OnCollisionExit(Collision other)
     {
-        attack = false;
+        if (other.gameObject.tag == "Wall")
+        {
+            enableMove = false;
+        } else if (other.gameObject.tag == "WallD")
+        {
+            enableMove = false;
+
+        }
     }
+
+//    void EnableAttack()
+//    {
+//        attack = false;
+//    }
 
     private void Update()
     {
-        print(jumping);
+        print(enableToJumpWall);
         if (gameObject.GetComponent<Rigidbody2D>().velocity.y > 1)
         {
             anim.SetBool("isJumping", true);
