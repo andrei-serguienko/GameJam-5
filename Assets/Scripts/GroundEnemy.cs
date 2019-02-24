@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GroundEnemy : MonoBehaviour
 {
+    private bool Played = false;
     private GameObject player;
     private Animator anim;
 
@@ -12,6 +13,8 @@ public class GroundEnemy : MonoBehaviour
     public float health = 100;
 
     public bool touching = false;
+
+    public AudioClip[] MyAudio;
     // Start is called before the first frame update
     void Start()
     {
@@ -44,10 +47,20 @@ public class GroundEnemy : MonoBehaviour
         if (Mathf.Abs(gameObject.GetComponent<Rigidbody2D>().velocity.x) > 0.5f)
         {
             anim.SetBool("Moving", true);
+            if (!Played)
+            {
+                GetComponent<AudioSource>().Play();
+                Played = true;
+            }
         }
         else
         {
             anim.SetBool("Moving", false);
+            if (Played)
+            {
+                GetComponent<AudioSource>().Stop();
+                Played = false;
+            }
             if(touching)
                 gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, 25));
         }
@@ -57,6 +70,7 @@ public class GroundEnemy : MonoBehaviour
     {
 //        gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
         Invoke("Attack", 2f);
+        GetComponent<AudioSource>().PlayOneShot(MyAudio[2]);
         anim.SetTrigger("Hit");
         health -= dmg;
     }
@@ -74,6 +88,7 @@ public class GroundEnemy : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             anim.SetTrigger("Attacking");
+            GetComponent<AudioSource>().PlayOneShot(MyAudio[1]);
             other.gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(-other.relativeVelocity.x * 300, 0), ForceMode2D.Impulse);
 //            gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
             Invoke("Attack", 3f);
@@ -82,6 +97,7 @@ public class GroundEnemy : MonoBehaviour
 
     private void OnCollisionStay2D(Collision2D other)
     {
+        if(other.gameObject.tag != "Player")
         touching = true;
     }
 

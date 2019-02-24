@@ -9,6 +9,7 @@ using Vector3 = UnityEngine.Vector3;
 
 public class HPlayer : MonoBehaviour
 {
+    private bool Played;
     public float speed;
     public float timeBetweenAttack;
     public Queue<String> movesQueue = new Queue<String>();
@@ -43,6 +44,8 @@ public class HPlayer : MonoBehaviour
     private Animator anim;
 
     public GameObject HitUI;
+    
+    public AudioClip[] MyAudio;
 
     private void Start()
     {
@@ -86,6 +89,7 @@ public class HPlayer : MonoBehaviour
     
     public void takeDamage(int qt)
     {
+        gameObject.GetComponent<AudioSource>().PlayOneShot(MyAudio[2]);
         HitUI.SetActive(true);
         if (currentArmor > 0)
         {
@@ -177,6 +181,7 @@ public class HPlayer : MonoBehaviour
 
         if (Input.GetKeyDown("w") && jumping == false)
         {
+            gameObject.GetComponent<AudioSource>().PlayOneShot(MyAudio[4]);
             if (enableToJumpWall)
             {
                 gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
@@ -205,11 +210,15 @@ public class HPlayer : MonoBehaviour
         {
             if (anim.GetCurrentAnimatorStateInfo(0).IsName("FirstAttack"))
             {
-                anim.SetBool("SecondAttack", true);
+                gameObject.GetComponent<AudioSource>().PlayOneShot(MyAudio[1]);
+                anim.SetBool("SecondAttack", true);   
             }
             else
             {
+                gameObject.GetComponent<AudioSource>().PlayOneShot(MyAudio[0]);
                 anim.SetTrigger("attack");
+                
+                
             }
             attack = true;
             
@@ -244,7 +253,8 @@ public class HPlayer : MonoBehaviour
             jumping = false;
             enableToJumpWall = false;
             enableMove = true;
-            
+            Played = false;
+
         } else if (other.gameObject.tag == "Wall")
         {
             wallRight = false;
@@ -255,10 +265,10 @@ public class HPlayer : MonoBehaviour
             wallRight = true;
             enableToJumpWall = true;
             jumping = false; 
-        }else if (other.gameObject.tag == "Enemy")
+        }else if (other.gameObject.tag == "Enemy" || other.gameObject.tag == "EnemyTwin" )
         {
             takeDamage(20);
-        } else if (other.gameObject.tag == "GroundEnemy")
+        } else if (other.gameObject.tag == "GroundEnemy" || other.gameObject.tag == "GroundEnemyTwin")
         {
             takeDamage(20);
         }
@@ -298,6 +308,11 @@ public class HPlayer : MonoBehaviour
         }
         if (gameObject.GetComponent<Rigidbody2D>().velocity.y < -0.5)
         {
+            if (!Played)
+            {
+                gameObject.GetComponent<AudioSource>().PlayOneShot(MyAudio[3]);
+                Played = true;
+            }
             anim.SetBool("isFalling", true);
         } else
         {
