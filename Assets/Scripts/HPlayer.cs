@@ -20,7 +20,7 @@ public class HPlayer : MonoBehaviour
     public int timeConstant = 500;
 //    private int maxHealth = 5;
     private int currentHealth = 100;
-    private int currentArmor = 20;
+    private int currentArmor = 0;
         
     public GameObject UiHealth;
     public GameObject UiArmor;
@@ -63,14 +63,12 @@ public class HPlayer : MonoBehaviour
 
     public void AddHealth(int qt)
     {
-        print("ADD");
         if (currentArmor >= 100)
         {
             return;
         }
         if (currentHealth >= 100)
         {
-            print("ED");
             currentArmor += qt;
             if (currentArmor > 100)
                 currentArmor = 100;
@@ -115,7 +113,7 @@ public class HPlayer : MonoBehaviour
 
     private void Die()
     {
-//        SceneManager.LoadScene("GameOver");
+        SceneManager.LoadScene("GameOver");
     }
 
     void Flip(string arg)
@@ -189,11 +187,13 @@ public class HPlayer : MonoBehaviour
                 {
                     gameObject.GetComponent<Rigidbody2D>().AddForce( new Vector2(-forceJump* 5000, forceJump*8000));
                     enableMove = false;
+                    gameObject.GetComponent<SpriteRenderer>().flipX = true;
                 }
                 else
                 {
                     gameObject.GetComponent<Rigidbody2D>().AddForce( new Vector2(forceJump* 5000, forceJump*8000));
                     enableMove = false;
+                    gameObject.GetComponent<SpriteRenderer>().flipX = false;
                 }
             }
             else
