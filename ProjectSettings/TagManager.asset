@@ -12,6 +12,9 @@ TagManager:
   - Harmony
   - EnemyTwin
   - GroundEnemyTwin
+  - Wall
+  - WallD
+  - Platform
   layers:
   - Default
   - TransparentFX
@@ -27,7 +30,7 @@ TagManager:
   - Enemy
   - Twin
   - Ground
-  - 
+  - Platform
   - 
   - 
   - 
