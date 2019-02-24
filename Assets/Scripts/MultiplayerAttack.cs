@@ -10,6 +10,7 @@ public class MultiplayerAttack : NetworkBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Debug.Log("woahh");
     }
 
     // Update is called once per frame
@@ -31,7 +32,6 @@ public class MultiplayerAttack : NetworkBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         //damage = transform.parent.gameObject.GetComponent<MultiplayerHPlayer>().damage;
-        if (!isServer) return;
 
         if (other.gameObject == transform.parent.gameObject)
         {

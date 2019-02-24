@@ -234,9 +234,10 @@ public class MultiplayerHPlayer : NetworkBehaviour
 
     void OnCollisionEnter2D(Collision2D other)
     {
-        print("wowoww");
+        Debug.Log("woah");
         if (other.gameObject == twinGameObject)
         {
+
         }
         else
         {
