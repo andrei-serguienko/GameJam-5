@@ -45,6 +45,8 @@ public class Harmony : MonoBehaviour
 {
     GameObject.FindWithTag("Harmony").transform.localScale = new Vector3(difference / 100 * 4 + 1, difference / 100 * 4 + 1, difference / 100 * 4 + 1);
     GameObject.FindWithTag("Player").GetComponent<HPlayer>().damage = difference;
+
+    audioSource.volume = (1f-(difference/100f))/3f;
     
         if (changed)
         {
@@ -75,7 +77,7 @@ public class Harmony : MonoBehaviour
             else if (difference > 100)
                 difference = 100;
 
-            modFrequency = Mathf.Round(difference);
+            modFrequency = 4;
             changed = true;
 
         }
