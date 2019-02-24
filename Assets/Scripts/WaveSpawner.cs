@@ -87,7 +87,7 @@ public class WaveSpawner : MonoBehaviour
         else
         {
             AppearPlatform();
-            GameObject.FindGameObjectWithTag("Player").GetComponent<HPlayer>().AddHealth();
+            GameObject.FindGameObjectWithTag("Player").GetComponent<HPlayer>().AddHealth(25);
             nextWave++;
         }
         

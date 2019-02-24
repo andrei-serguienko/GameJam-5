@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System;
 using System.Numerics;
@@ -17,10 +17,14 @@ public class HPlayer : MonoBehaviour
     private bool attack = false;
     private bool facingRight = true;
     public int timeConstant = 500;
-    private int maxHealth = 5;
-    private int currentHealth;
-    private ArrayList healthGameObjects;
-    private float healthTopBarPadding = 1;
+//    private int maxHealth = 5;
+    private int currentHealth = 100;
+    private int currentArmor = 25;
+        
+    public GameObject UiHealth;
+    public GameObject UiArmor;
+//    private ArrayList healthGameObjects;
+//    private float healthTopBarPadding = 1;
 
     private bool enableMove = true;
     private bool wallRight = false;
@@ -38,41 +42,46 @@ public class HPlayer : MonoBehaviour
     private void Start()
     {
         anim = GetComponent<Animator>();
-        
-        healthGameObjects = new ArrayList();
-        for(int i=0;i<maxHealth;i++)
-        {   
-            healthGameObjects.Add(AddHealth());
-        }
-        
+
     }
 
-    public GameObject AddHealth()
+    void UpdateUi()
     {
-        float spriteHeight = GetComponent<SpriteRenderer>().bounds.size.y;
-        float spriteWidth = GetComponent<SpriteRenderer>().bounds.size.x;
-        float yPos = transform.position.y - 1;
-        float xPos = transform.position.x;
-        float center = xPos - spriteWidth / 2 - 0.5f;
-        
-        GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        cube.GetComponent<Renderer>().material.color = Color.red;
-        Vector3 theScale = cube.transform.localScale;
-        theScale.x *= 0.5f;
-        theScale.y *= 0.5f;
-        cube.transform.localScale = theScale;
-        cube.transform.position = new Vector3(center + (currentHealth-1) * healthTopBarPadding, spriteHeight + yPos, 0);
-        cube.transform.parent = gameObject.transform;
-        currentHealth += 1;
-        return cube;
+        float transHealth = (float) currentHealth;
+        UiHealth.transform.localScale = new Vector3(transHealth/100, 1, 1);
+        float transArmor = (float) currentArmor;
+        UiArmor.transform.localScale = new Vector3(transArmor/100, 1, 1);
+    }
+
+    public void AddHealth(int qt)
+    {
+        print("ADD");
+        if (currentArmor >= 100)
+        {
+            return;
+        }
+        if (currentHealth >= 100)
+        {
+            print("ED");
+            currentArmor += qt;
+            if (currentArmor > 100)
+                currentArmor = 100;
+            return;
+        }
+        currentHealth += qt;
+        if (currentHealth > 100)
+        {
+            int goToArmor = currentHealth - 100;
+            currentArmor += goToArmor;
+            currentHealth = 100;
+            if (currentArmor > 100)
+                currentArmor = 100;
+        }
     }
     
     public void takeDamage()
     {
-        Destroy((GameObject) healthGameObjects[currentHealth - 1]);
-        currentHealth--;         
-        if (currentHealth <= 0)
-            Die();
+//        AddHealth(25);
     }
 
     private void Die()
@@ -258,7 +267,8 @@ public class HPlayer : MonoBehaviour
 
     private void Update()
     {
-        print(enableToJumpWall);
+        UpdateUi();
+        print(currentArmor);
         if (gameObject.GetComponent<Rigidbody2D>().velocity.y > 1)
         {
             anim.SetBool("isJumping", true);
