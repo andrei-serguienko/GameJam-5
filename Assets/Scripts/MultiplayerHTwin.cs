@@ -106,7 +106,7 @@ public class MultiplayerHTwin : NetworkBehaviour
 
     void FixedUpdate()
     {
-        if (player == null) return;
+        if(player == null) return;
         if (Time.time > imitateAtTime && player.movesQueue.Count > 0)
             switch (player.movesQueue.Dequeue())
             {

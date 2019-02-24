@@ -194,7 +194,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5487e4726eaf74a20b2928fa99288654, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
+  player: {fileID: 2043165843049565298, guid: b9be5f360de43441c8e5f3fa1d9197a5, type: 3}
   imitateAtTime: 0
 --- !u!212 &5084439631386439607
 SpriteRenderer:

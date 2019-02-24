@@ -31,28 +31,9 @@ public class MultiplayerAttack : MonoBehaviour
     {
         //damage = transform.parent.gameObject.GetComponent<MultiplayerHPlayer>().damage;
 
-        //if (other.gameObject.tag == "Enemy")
-        //{
-        //    other.gameObject.GetComponent<Enemy>().takeDamage(50);
-        //    //            print((gameObject.transform.position - other.gameObject.transform.position) * 5);
-        //    //            other.gameObject.GetComponent<Rigidbody2D>().AddForce(-(gameObject.transform.position - other.gameObject.transform.position) * 5, ForceMode2D.Impulse);      
-
-        //}
-        //else if (other.gameObject.tag == "GroundEnemy")
-        //{
-        //    other.gameObject.GetComponent<GroundEnemy>().takeDamage(damage);
-
-        //}
-
-        //else if (other.gameObject == transform.parent.gameObject)
-        //{
-        //    other.gameObject.GetComponent<HPlayer>().takeDamage();
-        //}
-
-        //else if (other.gameObject.tag == "GroundEnemy" && gameObject.tag == "GroundEnemyTwin")
-        //{
-        //    other.gameObject.GetComponent<GroundEnemy>().takeDamage(damage);
-        //}
+        if (other.gameObject == transform.parent.gameObject)
+        {
+            other.gameObject.GetComponent<MultiplayerHPlayer>().takeDamage();
+        }
     }
-
 }

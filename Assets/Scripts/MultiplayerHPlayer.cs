@@ -34,6 +34,8 @@ public class MultiplayerHPlayer : NetworkBehaviour
     private Animator anim;
     private bool setup = false;
 
+    public GameObject twinGameObject;
+
     private void Start()
     {
 
@@ -51,11 +53,13 @@ public class MultiplayerHPlayer : NetworkBehaviour
         Instantiate(cam, new Vector3(transform.position.x, transform.position.y, -18), Quaternion.identity);
     }
 
+    [Client]
     public override void OnStartLocalPlayer()
     {
-        base.OnStartLocalPlayer();
+        //base.OnStartLocalPlayer();
+        if (!isLocalPlayer) return;
         SetupCamera();
-        SetupTwin();
+        Cmd_AddToServer();
 
         anim = GetComponent<Animator>();
 
@@ -67,14 +71,14 @@ public class MultiplayerHPlayer : NetworkBehaviour
         setup = true;
     }
 
-    void SetupTwin()
+
+    void Cmd_AddToServer()
     {
-        GameObject gO = Instantiate(multiplayerHTwinPrefab, transform.position, transform.rotation);
-        MultiplayerHTwin multiplayerHTwin = gO.GetComponent<MultiplayerHTwin>();
+        MultiplayerHTwin multiplayerHTwin = multiplayerHTwinPrefab.GetComponent<MultiplayerHTwin>();
         multiplayerHTwin.imitateAtTime = Time.time + 3;
         multiplayerHTwin.player = this;
-        NetworkServer.AddPlayerForConnection(connectionToClient, gO, 40);
-        NetworkServer.Spawn(gO);
+        twinGameObject = Instantiate(multiplayerHTwinPrefab, transform.position, transform.rotation);
+        NetworkServer.Spawn(twinGameObject);
     }
 
     GameObject AddHealth()
@@ -144,7 +148,6 @@ public class MultiplayerHPlayer : NetworkBehaviour
     void FixedUpdate()
     {
         if (!setup) return;
-        if (!isLocalPlayer) return;
 
         bool doesMove = false;
         float moveHorizontal = Input.GetAxis("Horizontal");
