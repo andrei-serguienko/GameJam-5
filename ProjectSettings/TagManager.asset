@@ -15,6 +15,7 @@ TagManager:
   - Wall
   - WallD
   - Platform
+  - Spikle
   layers:
   - Default
   - TransparentFX
