@@ -1,8 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System;
+using System.Numerics;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Vector2 = UnityEngine.Vector2;
+using Vector3 = UnityEngine.Vector3;
 
 public class HPlayer : MonoBehaviour
 {
@@ -101,15 +104,19 @@ public class HPlayer : MonoBehaviour
     {
         bool doesMove = false;
         float moveHorizontal = Input.GetAxis("Horizontal");
-
+        Vector3 movement = Vector3.one;
 
 
         if (!enableMove)
         {
-            moveHorizontal = 0;
+//            movement = new Vector3(moveHorizontal * speed, 0, 0);
+        }
+        else
+        {
+            movement = new Vector3(moveHorizontal * speed, 0, 0);
         }
 
-        Vector3 movement = new Vector3(moveHorizontal * speed, 0, 0);
+         
         
         transform.position += movement * Time.deltaTime;
 
@@ -142,10 +149,12 @@ public class HPlayer : MonoBehaviour
                 if (wallRight)
                 {
                     gameObject.GetComponent<Rigidbody2D>().AddForce( new Vector2(-forceJump* 5000, forceJump*8000));
+                    enableMove = false;
                 }
                 else
                 {
                     gameObject.GetComponent<Rigidbody2D>().AddForce( new Vector2(forceJump* 5000, forceJump*8000));
+                    enableMove = false;
                 }
             }
             else
@@ -198,6 +207,7 @@ public class HPlayer : MonoBehaviour
     
     void OnCollisionEnter2D(Collision2D other)
     {
+        enableMove = true;
         if (other.gameObject.tag == "Ground")
         {
             jumping = false;
@@ -228,17 +238,17 @@ public class HPlayer : MonoBehaviour
         
     }
 
-    private void OnCollisionExit(Collision other)
-    {
-        if (other.gameObject.tag == "Wall")
-        {
-            enableMove = false;
-        } else if (other.gameObject.tag == "WallD")
-        {
-            enableMove = false;
-
-        }
-    }
+//    private void OnCollisionExit2D(Collision2D other)
+//    {
+//        if (other.gameObject.tag == "Wall")
+//        {
+//            enableMove = false;
+//        } else if (other.gameObject.tag == "WallD")
+//        {
+//            enableMove = false;
+//
+//        }
+//    }
 
 //    void EnableAttack()
 //    {
