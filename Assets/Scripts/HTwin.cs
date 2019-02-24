@@ -11,7 +11,7 @@ public class HTwin : MonoBehaviour
     private bool attack = false;
     private bool facingRight = true;
     private int forceJump;
-    public int timeTwin = 1;
+    public int timeTwin = 3;
 
     private Animator anim;
 
