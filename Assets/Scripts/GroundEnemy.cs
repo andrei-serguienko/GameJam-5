@@ -10,6 +10,8 @@ public class GroundEnemy : MonoBehaviour
     public int enemySpeed;
 
     public float health = 100;
+
+    public bool touching = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -46,12 +48,14 @@ public class GroundEnemy : MonoBehaviour
         else
         {
             anim.SetBool("Moving", false);
+            if(touching)
+                gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, 25));
         }
     }
 
     public void takeDamage(float dmg)
     {
-        gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+//        gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
         Invoke("Attack", 2f);
         anim.SetTrigger("Hit");
         health -= dmg;
@@ -71,8 +75,19 @@ public class GroundEnemy : MonoBehaviour
         {
             anim.SetTrigger("Attacking");
             other.gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(-other.relativeVelocity.x * 300, 0), ForceMode2D.Impulse);
-            gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+//            gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
             Invoke("Attack", 3f);
         }
+    }
+
+    private void OnCollisionStay2D(Collision2D other)
+    {
+        touching = true;
+    }
+
+    private void OnCollisionExit2D(Collision2D other)
+    {
+        touching = false;
+        Attack();
     }
 }
