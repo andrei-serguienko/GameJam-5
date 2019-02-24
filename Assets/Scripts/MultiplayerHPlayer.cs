@@ -21,6 +21,8 @@ public class MultiplayerHPlayer : NetworkBehaviour
 
     public int timeConstant = 500;
     private int maxHealth = 5;
+
+    [SyncVar]
     private int currentHealth;
     private ArrayList healthGameObjects;
     private float healthTopBarPadding = 1;
@@ -71,7 +73,6 @@ public class MultiplayerHPlayer : NetworkBehaviour
         setup = true;
     }
 
-
     void Cmd_AddToServer()
     {
         MultiplayerHTwin multiplayerHTwin = multiplayerHTwinPrefab.GetComponent<MultiplayerHTwin>();
@@ -105,6 +106,7 @@ public class MultiplayerHPlayer : NetworkBehaviour
     {
         Destroy((GameObject)healthGameObjects[currentHealth - 1]);
         currentHealth--;
+        print(currentHealth);
         if (currentHealth <= 0)
             Die();
     }
@@ -232,22 +234,20 @@ public class MultiplayerHPlayer : NetworkBehaviour
 
     void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.tag == "Ground")
+        print("wowoww");
+        if (other.gameObject == twinGameObject)
         {
-            jumping = false;
-        }
-        else if (other.gameObject.tag == "Enemy")
-        {
-            takeDamage();
-        }
-        else if (other.gameObject.tag == "GroundEnemy")
-        {
-            takeDamage();
         }
         else
         {
             jumping = true;
         }
+    }
+
+    [Command]
+    void CmdTakeDamage(MultiplayerHPlayer hp)
+    {
+        hp.takeDamage();
     }
 
     void EnableAttack()

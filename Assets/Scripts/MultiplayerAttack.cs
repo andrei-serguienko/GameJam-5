@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
-public class MultiplayerAttack : MonoBehaviour
+public class MultiplayerAttack : NetworkBehaviour
 {
     public float damage;
 
@@ -30,10 +31,17 @@ public class MultiplayerAttack : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         //damage = transform.parent.gameObject.GetComponent<MultiplayerHPlayer>().damage;
+        if (!isServer) return;
 
         if (other.gameObject == transform.parent.gameObject)
         {
-            other.gameObject.GetComponent<MultiplayerHPlayer>().takeDamage();
+            CmdTakeDamage(other.gameObject.GetComponent<MultiplayerHPlayer>());
         }
+    }
+
+    [Command]
+    void CmdTakeDamage(MultiplayerHPlayer hp)
+    {
+        hp.takeDamage();
     }
 }

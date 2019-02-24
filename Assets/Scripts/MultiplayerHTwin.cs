@@ -167,4 +167,9 @@ public class MultiplayerHTwin : NetworkBehaviour
             anim.SetBool("isFalling", false);
         }
     }
+
+    void Attack()
+    {
+
+    }
 }
