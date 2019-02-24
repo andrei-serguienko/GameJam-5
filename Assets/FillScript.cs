@@ -7,7 +7,7 @@ public class FillScript : MonoBehaviour
 {
     public Image redFlag;
     bool filling = true;
-    public float waitTime = 0.5f;
+    public float waitTime = 0.3f;
 
     private void Start()
     {
@@ -20,7 +20,7 @@ public class FillScript : MonoBehaviour
         if (filling == true)
         {
             //Reduce fill amount over 30 seconds
-            redFlag.fillAmount += 1.0f / waitTime *Time.deltaTime;
+            redFlag.fillAmount += 1.0f / waitTime * Time.deltaTime;
             Debug.Log(redFlag.fillAmount);
         }
     }
