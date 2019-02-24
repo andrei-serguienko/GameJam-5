@@ -11,6 +11,7 @@ public class Attack : MonoBehaviour
     void Start()
     {
         cast();
+//        OnTriggerEnter2D(ga);
     }
 
     // Update is called once per frame
