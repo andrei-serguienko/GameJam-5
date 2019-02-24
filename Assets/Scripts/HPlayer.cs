@@ -208,7 +208,7 @@ public class HPlayer : MonoBehaviour
     void OnCollisionEnter2D(Collision2D other)
     {
         enableMove = true;
-        if (other.gameObject.tag == "Ground")
+        if (other.gameObject.tag == "Ground" || other.gameObject.tag == "Platform")
         {
             jumping = false;
             enableToJumpWall = false;
