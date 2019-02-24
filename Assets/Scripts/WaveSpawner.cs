@@ -1,5 +1,6 @@
 ﻿ using System.Collections;
  using UnityEngine;
+ using UnityEngine.SceneManagement;
  using UnityEngine.Serialization;
  using UnityEngine.UI;
 
@@ -82,12 +83,12 @@ public class WaveSpawner : MonoBehaviour
 
         if (nextWave + 1 > waves.Length - 1)
         {
-            Debug.LogError("AllWaveComplete");
+            SceneManager.LoadScene("Win");
         }
         else
         {
             AppearPlatform();
-            GameObject.FindGameObjectWithTag("Player").GetComponent<HPlayer>().AddHealth(25);
+            GameObject.FindGameObjectWithTag("Player").GetComponent<HPlayer>().AddHealth(50);
             nextWave++;
         }
         
