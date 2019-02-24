@@ -7,31 +7,27 @@ using UnityEngine.Networking;
 
 public class MultiplayerHTwin : NetworkBehaviour
 {
-    private float speed;
-    private float timeBetweenAttack;
+    private float speed = 10;
+    private float timeBetweenAttack = 0;
     private bool jumping = false;
     private bool attack = false;
 
     [SyncVar(hook = "OnFacingRightChange")]
     private bool facingRight = true;
 
-    private int forceJump;
+    private int forceJump = 25;
     private int timeTwin = 3;
 
     private Animator anim;
 
     public MultiplayerHPlayer player;
     public float imitateAtTime;
-    public NetworkInstanceId netId;
+
 
     private void Start()
     {
         anim = GetComponent<Animator>();
-        print("What upasdasd!" + netId.ToString());
-        player = NetworkServer.FindLocalObject(netId).GetComponent<MultiplayerHPlayer>();
-        speed = player.speed;
-        timeBetweenAttack = player.timeBetweenAttack;
-        forceJump = player.forceJump;
+        //player = NetworkServer.FindLocalObject(netId).GetComponent<MultiplayerHPlayer>();
     }
 
     void Flip(string arg)
@@ -107,8 +103,10 @@ public class MultiplayerHTwin : NetworkBehaviour
         GetComponent<SpriteRenderer>().flipX = !facingRight;
     }
 
+
     void FixedUpdate()
     {
+        if (player == null) return;
         if (Time.time > imitateAtTime && player.movesQueue.Count > 0)
             switch (player.movesQueue.Dequeue())
             {

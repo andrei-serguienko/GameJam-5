@@ -55,7 +55,7 @@ public class MultiplayerHPlayer : NetworkBehaviour
     {
         base.OnStartLocalPlayer();
         SetupCamera();
-        CmdSetupTwin();
+        SetupTwin();
 
         anim = GetComponent<Animator>();
 
@@ -67,14 +67,13 @@ public class MultiplayerHPlayer : NetworkBehaviour
         setup = true;
     }
 
-    [Command]
-    void CmdSetupTwin()
+    void SetupTwin()
     {
-
         GameObject gO = Instantiate(multiplayerHTwinPrefab, transform.position, transform.rotation);
         MultiplayerHTwin multiplayerHTwin = gO.GetComponent<MultiplayerHTwin>();
-        multiplayerHTwin.netId = this.netId;
         multiplayerHTwin.imitateAtTime = Time.time + 3;
+        multiplayerHTwin.player = this;
+        NetworkServer.AddPlayerForConnection(connectionToClient, gO, 40);
         NetworkServer.Spawn(gO);
     }
 
@@ -196,7 +195,6 @@ public class MultiplayerHPlayer : NetworkBehaviour
                 anim.SetTrigger("attack");
             }
             attack = true;
-
         }
         if (!doesMove)
         {
