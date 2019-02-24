@@ -1,0 +1,228 @@
+fileFormatVersion: 2
+guid: db76bb9aeaf6fc74dbf9d774792b3d43
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: AttackAnimationSpritesheetSoul_0
+    21300002: AttackAnimationSpritesheetSoul_1
+    21300004: AttackAnimationSpritesheetSoul_2
+    21300006: AttackAnimationSpritesheetSoul_3
+    21300008: AttackAnimationSpritesheetSoul_4
+    21300010: AttackAnimationSpritesheetSoul_5
+    21300012: AttackAnimationSpritesheetSoul_6
+    21300014: AttackAnimationSpritesheetSoul_7
+    21300016: AttackAnimationSpritesheetSoul_8
+    21300018: AttackAnimationSpritesheetSoul_9
+    21300020: AttackAnimationSpritesheetSoul_10
+    21300022: AttackAnimationSpritesheetSoul_11
+    21300024: AttackAnimationSpritesheetSoul_12
+    21300026: AttackAnimationSpritesheetSoul_13
+    21300028: AttackAnimationSpritesheetSoul_14
+    21300030: AttackAnimationSpritesheetSoul_15
+    21300032: AttackAnimationSpritesheetSoul_16
+    21300034: AttackAnimationSpritesheetSoul_17
+    21300036: AttackAnimationSpritesheetSoul_18
+    21300038: AttackAnimationSpritesheetSoul_19
+    21300040: AttackAnimationSpritesheetSoul_20
+    21300042: AttackAnimationSpritesheetSoul_21
+    21300044: AttackAnimationSpritesheetSoul_22
+    21300046: AttackAnimationSpritesheetSoul_23
+    21300048: AttackAnimationSpritesheetSoul_24
+    21300050: AttackAnimationSpritesheetSoul_25
+    21300052: AttackAnimationSpritesheetSoul_26
+    21300054: AttackAnimationSpritesheetSoul_27
+    21300056: AttackAnimationSpritesheetSoul_28
+    21300058: AttackAnimationSpritesheetSoul_29
+    21300060: AttackAnimationSpritesheetSoul_30
+    21300062: AttackAnimationSpritesheetSoul_31
+    21300064: AttackAnimationSpritesheetSoul_32
+    21300066: AttackAnimationSpritesheetSoul_33
+    21300068: AttackAnimationSpritesheetSoul_34
+    21300070: AttackAnimationSpritesheetSoul_35
+    21300072: AttackAnimationSpritesheetSoul_36
+    21300074: AttackAnimationSpritesheetSoul_37
+    21300076: AttackAnimationSpritesheetSoul_38
+    21300078: AttackAnimationSpritesheetSoul_39
+    21300080: AttackAnimationSpritesheetSoul_40
+    21300082: AttackAnimationSpritesheetSoul_41
+    21300084: AttackAnimationSpritesheetSoul_42
+    21300086: AttackAnimationSpritesheetSoul_43
+    21300088: AttackAnimationSpritesheetSoul_44
+    21300090: AttackAnimationSpritesheetSoul_45
+    21300092: AttackAnimationSpritesheetSoul_46
+    21300094: AttackAnimationSpritesheetSoul_47
+    21300096: AttackAnimationSpritesheetSoul_48
+  externalObjects: {}
+  serializedVersion: 9
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: -1
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: -1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - serializedVersion: 2
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - serializedVersion: 2
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: AttackAnimationSpritesheetSoul_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 1000
+        height: 1500
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7d960dbeab31fde41a364828d73ea950
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AttackAnimationSpritesheetSoul_1
+      rect:
+        serializedVersion: 2
+        x: 1000
+        y: 0
+        width: 1000
+        height: 1500
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 558bfc61709aa3444a3323cdd3aaf473
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AttackAnimationSpritesheetSoul_2
+      rect:
+        serializedVersion: 2
+        x: 2000
+        y: 0
+        width: 1000
+        height: 1500
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b95d90a929ac1094d985a7223f5484c6
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AttackAnimationSpritesheetSoul_3
+      rect:
+        serializedVersion: 2
+        x: 3000
+        y: 0
+        width: 1000
+        height: 1500
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2448f4e07cb2c9e4fb42e025ac9de475
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 050846effef48514aa67991ac4983e53
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

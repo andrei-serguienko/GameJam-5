@@ -19,7 +19,7 @@ public class Attack : MonoBehaviour
 
     public void cast()
     {
-        Invoke("destroy", 0.6f);
+        Invoke("destroy", 0.3f);
     }
 
     void destroy()
@@ -40,17 +40,18 @@ public class Attack : MonoBehaviour
         } else if (other.gameObject.tag == "GroundEnemy")
         {
             other.gameObject.GetComponent<GroundEnemy>().takeDamage(damage);
-
         }
-        
         else if (other.gameObject.tag == "Player")
         {
             other.gameObject.GetComponent<HPlayer>().takeDamage();
         }
-        
-        else if (other.gameObject.tag == "GroundEnemy" && gameObject.tag == "GroundEnemyTwin")
+        else if (other.gameObject.tag == "GroundEnemyTwin" && gameObject.tag == "Twin")
         {
             other.gameObject.GetComponent<GroundEnemy>().takeDamage(damage);
+        }
+        else if (other.gameObject.tag == "EnemyTwin" && gameObject.tag == "Twin")
+        {
+            other.gameObject.GetComponent<Enemy>().takeDamage(damage);
         }
         
         
@@ -60,6 +61,6 @@ public class Attack : MonoBehaviour
     {
 //        Instantiate(particleEffect, tr);
         
-gameObject.GetComponent<ParticleSystem>().Emit(100);    
+//gameObject.GetComponent<ParticleSystem>().Emit(100);    
     }
 }

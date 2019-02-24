@@ -96,7 +96,7 @@ public class WaveSpawner : MonoBehaviour
         if (searchCountDown <= 0)
             return true;
         searchCountDown = 1f;
-        return GameObject.FindGameObjectWithTag("Enemy") || GameObject.FindGameObjectWithTag("GroundEnemy") ;
+        return GameObject.FindGameObjectWithTag("Enemy") || GameObject.FindGameObjectWithTag("GroundEnemy") || GameObject.FindGameObjectWithTag("GroundEnemyTwin") || GameObject.FindGameObjectWithTag("GroundEnemyTwin");
     }
 
     IEnumerator SpawnWave(Wave wave)

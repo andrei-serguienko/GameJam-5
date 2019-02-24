@@ -21443,7 +21443,7 @@ GameObject:
   - component: {fileID: 1362448638}
   m_Layer: 10
   m_Name: AttackRight
-  m_TagString: Untagged
+  m_TagString: Twin
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -24539,7 +24539,7 @@ Animator:
   m_GameObject: {fileID: 1656613535}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 4a8e5dd242847144cb4d7330ca3e7da8, type: 2}
+  m_Controller: {fileID: 9100000, guid: a1edbd1cbded56a40baf84e71c21d217, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -25386,7 +25386,8 @@ MonoBehaviour:
     enemy:
     - {fileID: 8286093677124417695, guid: da31ebe6ff703ee4bbef1d455cb71a39, type: 3}
     - {fileID: 8286093677124417695, guid: b69358faf082cf34ebd31308037e9ac0, type: 3}
-    count: 01000000010000000000000000000000
+    - {fileID: 8286093677124417695, guid: 7c6b20d14cc3f8f48bfd632f8909d70d, type: 3}
+    count: 01000000010000000100000000000000
     rate: 5
   - name: Second Wave
     enemy:
@@ -29623,7 +29624,7 @@ GameObject:
   - component: {fileID: 1975485197}
   m_Layer: 10
   m_Name: AttackLeft
-  m_TagString: Untagged
+  m_TagString: Twin
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
