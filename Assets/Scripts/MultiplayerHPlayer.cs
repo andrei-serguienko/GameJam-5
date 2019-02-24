@@ -10,6 +10,7 @@ public class MultiplayerHPlayer : NetworkBehaviour
 {
     public float speed;
     public float timeBetweenAttack;
+    public GameObject multiplayerHTwinPrefab;
     public Queue<String> movesQueue = new Queue<String>();
     public Queue<Vector3> positionQueue = new Queue<Vector3>();
     private bool jumping = false;
@@ -54,6 +55,7 @@ public class MultiplayerHPlayer : NetworkBehaviour
     {
         base.OnStartLocalPlayer();
         SetupCamera();
+        CmdSetupTwin();
 
         anim = GetComponent<Animator>();
 
@@ -63,6 +65,17 @@ public class MultiplayerHPlayer : NetworkBehaviour
             healthGameObjects.Add(AddHealth());
         }
         setup = true;
+    }
+
+    [Command]
+    void CmdSetupTwin()
+    {
+
+        GameObject gO = Instantiate(multiplayerHTwinPrefab, transform.position, transform.rotation);
+        MultiplayerHTwin multiplayerHTwin = gO.GetComponent<MultiplayerHTwin>();
+        multiplayerHTwin.netId = this.netId;
+        multiplayerHTwin.imitateAtTime = Time.time + 3;
+        NetworkServer.Spawn(gO);
     }
 
     GameObject AddHealth()
@@ -102,7 +115,6 @@ public class MultiplayerHPlayer : NetworkBehaviour
     {
         //Create a cube health
     }
-
 
     void Flip(string arg)
     {
@@ -198,18 +210,17 @@ public class MultiplayerHPlayer : NetworkBehaviour
         if (facingRight == true)
         {
             transform.GetChild(0).gameObject.SetActive(true);
-            transform.GetChild(0).GetComponent<Attack>().cast();
+            transform.GetChild(0).GetComponent<MultiplayerAttack>().cast();
             //            Invoke("EnableAttack", timeBetweenAttack);
             movesQueue.Enqueue("rightAttack");
         }
         else
         {
             transform.GetChild(1).gameObject.SetActive(true);
-            transform.GetChild(1).GetComponent<Attack>().cast();
+            transform.GetChild(1).GetComponent<MultiplayerAttack>().cast();
             //            Invoke("EnableAttack", timeBetweenAttack);
             movesQueue.Enqueue("leftAttack");
         }
-
     }
 
     public void OnFacingRightChange(bool newFacingRight)

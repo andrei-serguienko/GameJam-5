@@ -14,6 +14,7 @@ public class MultiplayerAttack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
     }
 
     public void cast()
@@ -28,7 +29,7 @@ public class MultiplayerAttack : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        damage = transform.parent.gameObject.GetComponent<HPlayer>().damage;
+        //damage = transform.parent.gameObject.GetComponent<MultiplayerHPlayer>().damage;
 
         //if (other.gameObject.tag == "Enemy")
         //{
