@@ -9,6 +9,12 @@ EditorBuildSettings:
     path: Assets/Scenes/Lobby.unity
     guid: 945f6f5a0c9f34dd49bccb9bdb61300d
   - enabled: 1
-    path: Assets/Scenes/Multiplayer.unity
-    guid: d3be15c763a8244478b51f804cdedd4b
+    path: Assets/Scenes/MultiplayerWithGame.unity
+    guid: f36cb3eff3f97441291ddca9a4aa0efa
+  - enabled: 1
+    path: Assets/Scenes/GameOver.unity
+    guid: f9f1494118b0de94f9d2a0d11fc24fa0
+  - enabled: 1
+    path: Assets/Scenes/Won.unity
+    guid: 6dfa11005819d41b09c5fbf2048ec17e
   m_configObjects: {}

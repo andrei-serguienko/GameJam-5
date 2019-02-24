@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEditor;
 
 public class MultiplayerAttack : NetworkBehaviour
 {
@@ -31,17 +32,26 @@ public class MultiplayerAttack : NetworkBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        //damage = transform.parent.gameObject.GetComponent<MultiplayerHPlayer>().damage;
+        if (other.gameObject.tag == "Ground" || other.gameObject.tag == "Platform" || other.gameObject.tag == "Wall" || other.gameObject.tag == "WallD") {
+            return;
+        }
 
-        if (other.gameObject == transform.parent.gameObject)
+        if (gameObject.tag == "Ground" || gameObject.tag == "Platform" || gameObject.tag == "Wall" || gameObject.tag == "WallD")
         {
-            CmdTakeDamage(other.gameObject.GetComponent<MultiplayerHPlayer>());
+            return;
+        }
+
+        if (other.gameObject.CompareTag("Twin"))
+        {
+            TakeDamage(other.gameObject);
+       }
+        else if (other.gameObject.CompareTag("Player") && !other.gameObject.Equals(transform.parent.gameObject)) {
+            TakeDamage(other.gameObject);
         }
     }
 
-    [Command]
-    void CmdTakeDamage(MultiplayerHPlayer hp)
+    void TakeDamage(GameObject gO)
     {
-        hp.takeDamage();
+       gO.GetComponent<MultiplayerHPlayer>().takeDamage(); ;
     }
 }

@@ -4,10 +4,13 @@ using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Networking;
-
+using UnityEditor;
 
 public class MultiplayerHPlayer : NetworkBehaviour
 {
+    //[SyncVar(hook = "OnPlayersConnectedChange")]
+    public int playersConnected = 999;
+
     public float speed;
     public float timeBetweenAttack;
     public GameObject multiplayerHTwinPrefab;
@@ -22,8 +25,9 @@ public class MultiplayerHPlayer : NetworkBehaviour
     public int timeConstant = 500;
     private int maxHealth = 5;
 
-    [SyncVar]
+    [SyncVar(hook = "OnHealthChange")]
     private int currentHealth;
+
     private ArrayList healthGameObjects;
     private float healthTopBarPadding = 1;
 
@@ -37,11 +41,31 @@ public class MultiplayerHPlayer : NetworkBehaviour
     private bool setup = false;
 
     public GameObject twinGameObject;
+    private bool enableMove = true;
+    private bool enableToJumpWall = false;
+    private bool wallRight = false;
+
 
     private void Start()
     {
 
     }
+
+    public void OnHealthChange(int newCurrentHealth)
+    {
+        currentHealth = newCurrentHealth;
+        if (currentHealth <= 0)
+            Die();
+    }
+
+    //public void OnPlayersConnectedChange(int num)
+    //{
+    //    playersConnected = num;
+    //    if(playersConnected<=0)
+    //    {
+    //        //Win();
+    //    }
+    //}
 
     private void SetupCamera()
     {
@@ -55,7 +79,6 @@ public class MultiplayerHPlayer : NetworkBehaviour
         Instantiate(cam, new Vector3(transform.position.x, transform.position.y, -18), Quaternion.identity);
     }
 
-    [Client]
     public override void OnStartLocalPlayer()
     {
         //base.OnStartLocalPlayer();
@@ -106,15 +129,22 @@ public class MultiplayerHPlayer : NetworkBehaviour
     {
         Destroy((GameObject)healthGameObjects[currentHealth - 1]);
         currentHealth--;
-        print(currentHealth);
         if (currentHealth <= 0)
             Die();
     }
 
     private void Die()
     {
+        NetworkServer.DisconnectAll();
         SceneManager.LoadScene("GameOver");
     }
+
+    private void Win()
+    {
+        NetworkServer.DisconnectAll();
+        SceneManager.LoadScene("Won");
+    }
+
 
     public void regenHealth(int qt)
     {
@@ -149,12 +179,25 @@ public class MultiplayerHPlayer : NetworkBehaviour
 
     void FixedUpdate()
     {
-        if (!setup) return;
+        if (!isLocalPlayer) return;
 
+        if(playersConnected <=0 && currentHealth > 0)
+        {
+            //Win();
+        }
         bool doesMove = false;
         float moveHorizontal = Input.GetAxis("Horizontal");
+        Vector3 movement = Vector3.one;
 
-        Vector3 movement = new Vector3(moveHorizontal * speed, 0, 0);
+
+        if (!enableMove)
+        {
+            //            movement = new Vector3(moveHorizontal * speed, 0, 0);
+        }
+        else
+        {
+            movement = new Vector3(moveHorizontal * speed, 0, 0);
+        }
 
         transform.position += movement * Time.deltaTime;
 
@@ -183,7 +226,25 @@ public class MultiplayerHPlayer : NetworkBehaviour
 
         if (Input.GetKeyDown("w") && jumping == false)
         {
-            gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(0, forceJump);
+            if (enableToJumpWall)
+            {
+                gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+                if (wallRight)
+                {
+                    gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(-forceJump * 5000, forceJump * 8000));
+                    enableMove = false;
+                }
+                else
+                {
+                    gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(forceJump * 5000, forceJump * 8000));
+                    enableMove = false;
+                }
+            }
+            else
+            {
+                gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+                gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, forceJump * 8000));
+            }
             movesQueue.Enqueue("jump");
             jumping = true;
             doesMove = true;
@@ -200,6 +261,7 @@ public class MultiplayerHPlayer : NetworkBehaviour
                 anim.SetTrigger("attack");
             }
             attack = true;
+
         }
         if (!doesMove)
         {
@@ -234,21 +296,33 @@ public class MultiplayerHPlayer : NetworkBehaviour
 
     void OnCollisionEnter2D(Collision2D other)
     {
-        Debug.Log("woah");
-        if (other.gameObject == twinGameObject)
+        if (!isLocalPlayer) return;
+        enableMove = true;
+        if (other.gameObject.tag == "Ground" || other.gameObject.tag == "Platform")
         {
+            jumping = false;
+            enableToJumpWall = false;
+            enableMove = true;
 
+        }
+        else if (other.gameObject.tag == "Wall")
+        {
+            wallRight = false;
+            enableToJumpWall = true;
+            jumping = false;
+        }
+        else if (other.gameObject.tag == "WallD")
+        {
+            wallRight = true;
+            enableToJumpWall = true;
+            jumping = false;
+        } else if (attack) { 
+            
         }
         else
         {
             jumping = true;
         }
-    }
-
-    [Command]
-    void CmdTakeDamage(MultiplayerHPlayer hp)
-    {
-        hp.takeDamage();
     }
 
     void EnableAttack()

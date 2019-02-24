@@ -53,8 +53,6 @@ public class Attack : MonoBehaviour
         {
             other.gameObject.GetComponent<Enemy>().takeDamage(damage);
         }
-        
-        
     }
 
     private void OnEnable()
