@@ -189,11 +189,13 @@ public class HPlayer : MonoBehaviour
                 {
                     gameObject.GetComponent<Rigidbody2D>().AddForce( new Vector2(-forceJump* 5000, forceJump*8000));
                     enableMove = false;
+                    gameObject.GetComponent<SpriteRenderer>().flipX = true;
                 }
                 else
                 {
                     gameObject.GetComponent<Rigidbody2D>().AddForce( new Vector2(forceJump* 5000, forceJump*8000));
                     enableMove = false;
+                    gameObject.GetComponent<SpriteRenderer>().flipX = false;
                 }
             }
             else
