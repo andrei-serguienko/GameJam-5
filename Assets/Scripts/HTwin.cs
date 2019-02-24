@@ -17,6 +17,9 @@ public class HTwin : MonoBehaviour
 
     public HPlayer player;
 
+    public GameObject LeftAttackT;
+    public GameObject RightAttackT;
+
     private void Start()
     {
         anim = GetComponent<Animator>();
@@ -72,8 +75,7 @@ public class HTwin : MonoBehaviour
 
     void LeftAttack()
     {
-        transform.GetChild(0).gameObject.SetActive(true);
-        transform.GetChild(0).GetComponent<Attack>().cast();
+        Instantiate(LeftAttackT, transform);
         Invoke("EnableAttack", timeBetweenAttack);
         anim.SetTrigger("attack");
 
@@ -81,8 +83,7 @@ public class HTwin : MonoBehaviour
 
     void RightAttack()
     {
-        transform.GetChild(1).gameObject.SetActive(true);
-        transform.GetChild(1).GetComponent<Attack>().cast();
+        Instantiate(RightAttackT, transform);
         Invoke("EnableAttack", timeBetweenAttack);
         anim.SetTrigger("attack");
     }

@@ -23,6 +23,9 @@ public class HPlayer : MonoBehaviour
         
     public GameObject UiHealth;
     public GameObject UiArmor;
+
+    public GameObject AttackRight;
+    public GameObject AttackLeft;
 //    private ArrayList healthGameObjects;
 //    private float healthTopBarPadding = 1;
 
@@ -108,7 +111,7 @@ public class HPlayer : MonoBehaviour
 
     private void Die()
     {
-        SceneManager.LoadScene("GameOver");
+//        SceneManager.LoadScene("GameOver");
     }
 
     void Flip(string arg)
@@ -222,16 +225,12 @@ public class HPlayer : MonoBehaviour
     {
         if (facingRight == true)
         {
-            transform.GetChild(0).gameObject.SetActive(true);
-            transform.GetChild(0).GetComponent<Attack>().cast();
-//            Invoke("EnableAttack", timeBetweenAttack);
+            Instantiate(AttackRight, transform);
             movesQueue.Enqueue("rightAttack");
         }
         else
         {
-            transform.GetChild(1).gameObject.SetActive(true);
-            transform.GetChild(1).GetComponent<Attack>().cast();
-//            Invoke("EnableAttack", timeBetweenAttack);
+            Instantiate(AttackLeft, transform);
             movesQueue.Enqueue("leftAttack");
         }
         
@@ -290,7 +289,6 @@ public class HPlayer : MonoBehaviour
     private void Update()
     {
         UpdateUi();
-        print(currentHealth);
         if (gameObject.GetComponent<Rigidbody2D>().velocity.y > 1)
         {
             anim.SetBool("isJumping", true);

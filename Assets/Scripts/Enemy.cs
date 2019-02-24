@@ -46,6 +46,7 @@ public class Enemy : MonoBehaviour
 
     public void takeDamage(float dmg)
     {
+        print("TAKEEEEEEEE");
         gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
         Invoke("Attack", 2f);
         anim.SetTrigger("Hit");
