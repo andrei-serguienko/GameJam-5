@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using System;
 using System.Numerics;
@@ -159,6 +159,7 @@ public class HPlayer : MonoBehaviour
             }
             else
             {
+                gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
                 gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, forceJump*8000));
             }
             movesQueue.Enqueue("jump");
