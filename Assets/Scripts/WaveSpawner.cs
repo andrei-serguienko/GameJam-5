@@ -149,7 +149,12 @@ public class WaveSpawner : MonoBehaviour
 
     private void AppearPlatform()
     {
-        platforms[nextWave].SetActive(true);  
+        platforms[nextWave].SetActive(true);
+        for (int i = 0; i < platforms.Length; ++i)
+        {
+            platforms[i].GetComponent<AudioSource>().Stop();
+        }
+        platforms[nextWave].GetComponent<AudioSource>().Play();
     }
 
     private string RomainText()
